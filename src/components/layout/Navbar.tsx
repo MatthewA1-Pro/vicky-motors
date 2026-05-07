@@ -54,6 +54,7 @@ export default function Navbar() {
           <span className="text-3xl font-serif tracking-[0.3em] font-black uppercase">LUXE</span>
           <span className="text-[8px] tracking-[0.6em] text-luxury-gold uppercase -mt-1 ml-1 font-bold">Auto Gallery</span>
         </Link>
+        </div>
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center space-x-12">
