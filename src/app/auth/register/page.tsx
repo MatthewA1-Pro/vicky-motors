@@ -1,10 +1,43 @@
 "use client";
 
+import { useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Mail, Lock, User, ArrowRight, Globe, Command } from "lucide-react";
 
 export default function RegisterPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: name,
+        }
+      }
+    });
+
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+    } else {
+      router.push("/dashboard");
+    }
+  };
+
   return (
     <div className="min-h-screen flex">
       {/* Left: Content */}
@@ -22,18 +55,22 @@ export default function RegisterPage() {
               </span>
             </Link>
             <h1 className="text-4xl font-serif">Join the Inner Circle</h1>
-            <p className="text-white/40 text-sm tracking-widest uppercase">Create an account for exclusive access and personalization</p>
+            <p className="text-white/40 text-sm tracking-widest uppercase">Create an account for exclusive access</p>
           </div>
 
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleRegister}>
+            {error && <p className="text-red-500 text-xs tracking-widest uppercase">{error}</p>}
             <div className="space-y-2">
               <label className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-bold ml-1">Full Name</label>
               <div className="relative">
                 <User className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" size={18} />
                 <input 
                   type="text" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   placeholder="ALEXANDER VANCE"
                   className="w-full bg-white/5 border border-white/10 px-14 py-4 text-xs tracking-[0.2em] focus:outline-none focus:border-luxury-gold transition-colors"
+                  required
                 />
               </div>
             </div>
@@ -44,8 +81,11 @@ export default function RegisterPage() {
                 <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" size={18} />
                 <input 
                   type="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="NAME@EXAMPLE.COM"
                   className="w-full bg-white/5 border border-white/10 px-14 py-4 text-xs tracking-[0.2em] focus:outline-none focus:border-luxury-gold transition-colors"
+                  required
                 />
               </div>
             </div>
@@ -56,19 +96,20 @@ export default function RegisterPage() {
                 <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" size={18} />
                 <input 
                   type="password" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="w-full bg-white/5 border border-white/10 px-14 py-4 text-xs tracking-[0.2em] focus:outline-none focus:border-luxury-gold transition-colors"
+                  required
                 />
               </div>
             </div>
 
-            <div className="flex items-center gap-3 ml-1">
-              <input type="checkbox" className="w-4 h-4 rounded border-white/10 bg-white/5 checked:bg-luxury-gold appearance-none border checked:border-transparent transition-all cursor-pointer" />
-              <label className="text-[10px] tracking-[0.1em] uppercase text-white/40 font-bold">I agree to the <Link href="#" className="text-luxury-gold hover:text-white transition-colors">Terms of Service</Link> and <Link href="#" className="text-luxury-gold hover:text-white transition-colors">Privacy Policy</Link></label>
-            </div>
-
-            <button className="w-full bg-white text-black py-5 text-xs font-bold tracking-[0.4em] uppercase hover:bg-luxury-gold transition-all flex items-center justify-center gap-4 group">
-              Register <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <button 
+              disabled={loading}
+              className="w-full bg-white text-black py-5 text-xs font-bold tracking-[0.4em] uppercase hover:bg-luxury-gold transition-all flex items-center justify-center gap-4 group"
+            >
+              {loading ? "CREATING ACCOUNT..." : "REGISTER"} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </form>
 

@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Search, User, Heart, ShoppingBag } from "lucide-react";
+import { Menu, X, Search, User, Heart, ShoppingBag, LogOut, LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/context/AuthContext";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -76,9 +77,35 @@ export default function Navbar() {
           <button className="text-white hover:text-luxury-gold transition-colors">
             <Search size={20} />
           </button>
-          <Link href="/auth/login" className="text-white hover:text-luxury-gold transition-colors">
-            <User size={20} />
-          </Link>
+          
+          {/* Auth Actions */}
+          <div className="hidden lg:flex items-center space-x-6">
+            {user ? (
+              <div className="flex items-center space-x-6">
+                <Link
+                  href="/dashboard"
+                  className="flex items-center space-x-2 text-[10px] tracking-widest uppercase font-bold hover:text-luxury-gold transition-colors"
+                >
+                  <LayoutDashboard size={16} />
+                  <span>Dashboard</span>
+                </Link>
+                <button
+                  onClick={() => signOut()}
+                  className="flex items-center space-x-2 text-[10px] tracking-widest uppercase font-bold text-red-500/60 hover:text-red-500 transition-colors"
+                >
+                  <LogOut size={16} />
+                  <span>Logout</span>
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/auth/login"
+                className="bg-white text-black px-8 py-3 text-[10px] tracking-widest uppercase font-bold hover:bg-luxury-gold transition-all duration-300"
+              >
+                Sign In
+              </Link>
+            )}
+          </div>
           <button className="lg:hidden text-white" onClick={() => setIsMobileMenuOpen(true)}>
             <Menu size={24} />
           </button>
@@ -112,6 +139,34 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
+              {user ? (
+                <div className="pt-10 space-y-6">
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-2xl font-serif tracking-widest text-luxury-gold"
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={() => {
+                      signOut();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="block text-2xl font-serif tracking-widest text-red-500"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  href="/auth/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block text-2xl font-serif tracking-widest text-luxury-gold pt-10"
+                >
+                  Sign In
+                </Link>
+              )}
             </nav>
             <div className="mt-auto flex space-x-10">
               <div className="flex flex-col">
