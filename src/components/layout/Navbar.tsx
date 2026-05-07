@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, LayoutDashboard, LogOut } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { ArrowLeft, Menu, X, LayoutDashboard, LogOut } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +20,8 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -32,8 +35,22 @@ export default function Navbar() {
       isScrolled ? "bg-luxury-obsidian/90 backdrop-blur-xl py-4 border-b border-white/5" : "bg-transparent py-8"
     )}>
       <div className="container mx-auto px-8 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="group flex flex-col">
+        <div className="flex items-center space-x-12">
+          {/* Back Button */}
+          {pathname !== "/" && (
+            <motion.button
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              onClick={() => router.back()}
+              className="group flex items-center space-x-3 text-[10px] tracking-[0.4em] uppercase font-bold text-white/40 hover:text-luxury-gold transition-colors"
+            >
+              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+              <span className="hidden md:inline">Back</span>
+            </motion.button>
+          )}
+
+          {/* Logo */}
+          <Link href="/" className="group flex flex-col">
           <span className="text-3xl font-serif tracking-[0.3em] font-black uppercase">LUXE</span>
           <span className="text-[8px] tracking-[0.6em] text-luxury-gold uppercase -mt-1 ml-1 font-bold">Auto Gallery</span>
         </Link>
