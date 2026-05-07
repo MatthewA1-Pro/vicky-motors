@@ -13,12 +13,14 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const router = useRouter();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setSuccess(false);
 
     const { error } = await supabase.auth.signUp({
       email,
@@ -34,7 +36,9 @@ export default function RegisterPage() {
       setError(error.message);
       setLoading(false);
     } else {
-      router.push("/dashboard");
+      setSuccess(true);
+      setLoading(false);
+      // Optional: router.push("/dashboard") if email confirmation is disabled
     }
   };
 
@@ -60,6 +64,13 @@ export default function RegisterPage() {
 
           <form className="space-y-6" onSubmit={handleRegister}>
             {error && <p className="text-red-500 text-xs tracking-widest uppercase">{error}</p>}
+            {success && (
+              <div className="bg-luxury-gold/10 border border-luxury-gold/20 p-6 space-y-2">
+                <p className="text-luxury-gold text-xs tracking-widest uppercase font-bold">Registration Successful</p>
+                <p className="text-white/60 text-[10px] tracking-widest uppercase">Please check your email to confirm your account before signing in.</p>
+                <Link href="/auth/login" className="inline-block text-white text-[10px] tracking-widest uppercase underline mt-2">Go to Login</Link>
+              </div>
+            )}
             <div className="space-y-2">
               <label className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-bold ml-1">Full Name</label>
               <div className="relative">
