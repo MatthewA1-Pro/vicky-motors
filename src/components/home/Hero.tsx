@@ -62,10 +62,10 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-serif leading-[1.1] mb-10"
+            className="text-6xl md:text-8xl lg:text-9xl font-serif leading-[1.1] mb-10 naruto-glow"
           >
-            The Art of <br />
-            <span className="italic gold-gradient tracking-tight">Movement</span>
+            Believe In <br />
+            <span className="italic gold-gradient tracking-tight">Excellence</span>
           </motion.h1>
 
           <motion.p

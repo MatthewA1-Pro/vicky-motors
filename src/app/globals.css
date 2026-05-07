@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-luxury-gold: #D4AF37;
-  --color-luxury-silver: #C0C0C0;
+  --color-luxury-gold: #FF9F1C;
+  --color-luxury-silver: #D90429;
   --color-luxury-black: #050505;
   --color-luxury-charcoal: #121212;
-  --color-luxury-gold-muted: rgba(212, 175, 55, 0.2);
+  --color-luxury-gold-muted: rgba(255, 159, 28, 0.2);
   
   --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
@@ -45,12 +45,27 @@ html {
 
 body {
   background-color: var(--background);
+  background-image: 
+    linear-gradient(to bottom, rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.95)),
+    url('https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=2000&auto=format&fit=crop');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
   letter-spacing: 0.02em;
+}
+
+.naruto-glow {
+  text-shadow: 0 0 10px rgba(255, 159, 28, 0.5), 0 0 20px rgba(255, 159, 28, 0.3);
+}
+
+.naruto-cloud-bg {
+  background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+  opacity: 0.1;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -83,13 +98,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .gold-gradient {
-  background: linear-gradient(135deg, #D4AF37 0%, #F5E6AB 50%, #D4AF37 100%);
+  background: linear-gradient(135deg, #FF9F1C 0%, #FFBF69 50%, #FF9F1C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .silver-gradient {
-  background: linear-gradient(135deg, #C0C0C0 0%, #EAEAEA 50%, #C0C0C0 100%);
+  background: linear-gradient(135deg, #D90429 0%, #EF233C 50%, #D90429 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -109,16 +124,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4AF37;
+  background: #FF9F1C;
 }
 
 .premium-border {
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(255, 159, 28, 0.3);
 }
 
 .premium-border:hover {
-  border-color: #D4AF37;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+  border-color: #FF9F1C;
+  box-shadow: 0 0 20px rgba(255, 159, 28, 0.15);
 }
 
 .text-stroke {

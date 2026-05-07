@@ -11,7 +11,7 @@ export default function FeaturedInventory() {
     <section className="py-32 bg-luxury-black relative overflow-hidden">
       {/* Background Decorative Text */}
       <div className="absolute top-0 right-0 text-[20vw] font-serif font-bold text-white/[0.02] select-none pointer-events-none leading-none -translate-y-1/4 translate-x-1/4">
-        PRESTIGE
+        SHINOBI
       </div>
 
       <div className="container mx-auto px-6">
