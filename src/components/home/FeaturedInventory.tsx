@@ -4,108 +4,107 @@ import { motion } from "framer-motion";
 import { vehicles } from "@/data/vehicles";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
-import { ArrowUpRight, Gauge, Zap, Fuel } from "lucide-react";
+import { ArrowUpRight, Plus } from "lucide-react";
 
 export default function FeaturedInventory() {
   return (
-    <section className="py-32 bg-luxury-black relative overflow-hidden">
-      {/* Background Decorative Text */}
-      <div className="absolute top-0 right-0 text-[20vw] font-serif font-bold text-white/[0.02] select-none pointer-events-none leading-none -translate-y-1/4 translate-x-1/4">
-        SHINOBI
-      </div>
-
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+    <section className="py-40 bg-luxury-obsidian relative overflow-hidden">
+      <div className="container mx-auto px-8">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-32 gap-12">
           <div className="max-w-2xl">
-            <motion.span
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-luxury-gold tracking-[0.4em] uppercase text-xs font-bold mb-4 block"
+              className="flex items-center gap-4 mb-6"
             >
-              The Collection
-            </motion.span>
+              <div className="w-12 h-[1px] bg-luxury-gold" />
+              <span className="text-premium text-luxury-gold">Curated Showcase</span>
+            </motion.div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-6xl font-serif"
+              className="text-6xl md:text-8xl font-serif"
             >
-              Featured <span className="italic">Showcase</span>
+              Masterpieces on <br />
+              <span className="italic">Display</span>
             </motion.h2>
           </div>
-          <Link
-            href="/inventory"
-            className="group flex items-center space-x-3 text-sm tracking-[0.3em] uppercase hover:text-luxury-gold transition-colors"
-          >
-            <span>View Full Inventory</span>
-            <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" size={20} />
+          <Link href="/inventory" className="group flex items-center gap-6 pb-2 border-b border-white/10 hover:border-luxury-gold transition-all">
+            <span className="text-[10px] tracking-[0.4em] uppercase font-bold">The Full Collection</span>
+            <ArrowUpRight size={20} className="text-luxury-gold group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {/* Showcase Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
           {vehicles.slice(0, 4).map((vehicle, index) => (
             <motion.div
               key={vehicle.id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group relative"
+              transition={{ delay: index * 0.1, duration: 0.8 }}
+              className="group"
             >
-              {/* Image Container */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
-                <img
-                  src={vehicle.images[0]}
+              <div className="relative aspect-[16/11] overflow-hidden bg-zinc-900 hover-reveal">
+                <img 
+                  src={vehicle.images[0]} 
                   alt={vehicle.name}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700" />
                 
-                {/* Badge */}
-                <div className="absolute top-6 left-6 px-4 py-2 bg-luxury-black/80 backdrop-blur-md border border-white/10 text-[10px] tracking-[0.2em] uppercase font-bold">
-                  {vehicle.category}
+                {/* Hover Quick Specs */}
+                <div className="absolute inset-x-12 bottom-12 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
+                  <div className="grid grid-cols-3 gap-8 pt-10 border-t border-white/20">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[8px] tracking-[0.3em] uppercase text-white/40">Performance</span>
+                      <span className="text-xs font-bold">{vehicle.hp} HP</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[8px] tracking-[0.3em] uppercase text-white/40">Acceleration</span>
+                      <span className="text-xs font-bold">{vehicle.acceleration}</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[8px] tracking-[0.3em] uppercase text-white/40">Engine</span>
+                      <span className="text-xs font-bold">{vehicle.engine.split(' ')[0]}</span>
+                    </div>
+                  </div>
                 </div>
+
+                <Link 
+                  href={`/car/${vehicle.id}`}
+                  className="absolute top-8 right-8 w-14 h-14 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-luxury-gold hover:text-black"
+                >
+                  <Plus size={24} />
+                </Link>
               </div>
 
-              {/* Info */}
-              <div className="pt-12 px-2">
-                <div className="flex justify-between items-start mb-10">
-                  <div>
-                    <h3 className="text-3xl font-serif tracking-widest group-hover:text-luxury-gold transition-colors naruto-glow">{vehicle.name}</h3>
-                    <p className="text-white/40 text-[11px] tracking-[0.4em] uppercase mt-4">{vehicle.year} &bull; {vehicle.brand}</p>
-                  </div>
-                  <span className="text-2xl font-bold tracking-widest text-luxury-gold">{formatPrice(vehicle.price)}</span>
-                </div>
-
-                <div className="grid grid-cols-3 gap-10 border-t border-white/10 pt-10 mt-10">
-                  <div className="flex flex-col gap-2">
-                    <Gauge size={16} className="text-luxury-gold" />
-                    <span className="text-[10px] tracking-widest uppercase text-white/40">Power</span>
-                    <span className="text-sm font-medium">{vehicle.hp} HP</span>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Zap size={16} className="text-luxury-gold" />
-                    <span className="text-[10px] tracking-widest uppercase text-white/40">0-60</span>
-                    <span className="text-sm font-medium">{vehicle.acceleration}</span>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Fuel size={16} className="text-luxury-gold" />
-                    <span className="text-[10px] tracking-widest uppercase text-white/40">Engine</span>
-                    <span className="text-sm font-medium truncate">{vehicle.engine.split(' ')[0]}</span>
+              <div className="mt-12 flex justify-between items-start">
+                <div>
+                  <h3 className="text-4xl font-serif mb-4 group-hover:gold-gradient transition-all">{vehicle.name}</h3>
+                  <div className="flex items-center gap-6">
+                    <span className="text-[10px] tracking-[0.4em] uppercase text-white/40 font-bold">{vehicle.year} &bull; {vehicle.brand}</span>
+                    <div className="w-10 h-[1px] bg-white/10" />
+                    <span className="text-[10px] tracking-[0.4em] uppercase text-luxury-gold font-bold">{vehicle.category}</span>
                   </div>
                 </div>
-
-                <Link
-                  href={`/car/${vehicle.id}`}
-                  className="mt-8 w-full border border-white/10 py-4 flex items-center justify-center text-xs tracking-[0.3em] uppercase font-bold hover:bg-white hover:text-black transition-all"
-                >
-                  View Specifications
-                </Link>
+                <div className="text-right">
+                  <p className="text-[10px] tracking-[0.5em] uppercase text-white/20 mb-2">Investment</p>
+                  <span className="text-2xl font-bold tracking-tighter">{formatPrice(vehicle.price)}</span>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
+      </div>
+
+      {/* Side Decorative Text */}
+      <div className="absolute bottom-0 left-0 text-[15vw] font-serif font-black text-white/[0.01] select-none pointer-events-none translate-y-1/2 -rotate-90 origin-left">
+        COLLECTION
       </div>
     </section>
   );

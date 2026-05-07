@@ -1,164 +1,118 @@
 @import "tailwindcss";
 
 @theme {
-  --color-luxury-gold: #FF9F1C;
-  --color-luxury-silver: #D90429;
-  --color-luxury-black: #050505;
-  --color-luxury-charcoal: #121212;
-  --color-luxury-gold-muted: rgba(255, 159, 28, 0.2);
+  --color-luxury-gold: #C5A059;
+  --color-luxury-gold-bright: #E8D099;
+  --color-luxury-black: #080808;
+  --color-luxury-obsidian: #020202;
+  --color-luxury-silver: #E2E2E2;
+  --color-luxury-platinum: #A8A8A8;
   
   --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
-
-  --animate-fade-in: fade-in 1s ease-out;
-  --animate-slide-up: slide-up 0.8s ease-out;
-  --animate-reveal: reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1);
-
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes slide-up {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-  @keyframes reveal {
-    from { clip-path: inset(0 100% 0 0); }
-    to { clip-path: inset(0 0 0 0); }
-  }
+  --font-mono: "Space Mono", monospace;
 }
 
 :root {
-  --background: #050505;
+  --background: #020202;
   --foreground: #ffffff;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
+@layer base {
+  * {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
 }
 
 body {
   background-color: var(--background);
-  background-image: 
-    linear-gradient(to bottom, rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.95)),
-    url('https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=2000&auto=format&fit=crop');
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
-  letter-spacing: 0.02em;
 }
 
-.naruto-glow {
-  text-shadow: 0 0 10px rgba(255, 159, 28, 0.5), 0 0 20px rgba(255, 159, 28, 0.3);
+/* Elite Typography */
+.text-display {
+  font-family: var(--font-serif);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
-.naruto-cloud-bg {
-  background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-  opacity: 0.1;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-}
-
-.premium-tracking {
-  letter-spacing: 0.5em;
+.text-premium {
+  letter-spacing: 0.4em;
   text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.7rem;
 }
 
-.subtle-tracking {
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
+/* Luxury Components */
 .glass {
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.glass-dark {
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-section {
-  padding-top: 10rem;
-  padding-bottom: 10rem;
-}
-
-.naruto-card {
-  background: rgba(18, 18, 18, 0.7);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 159, 28, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.naruto-card:hover {
-  border-color: #FF9F1C;
-  box-shadow: 0 0 30px rgba(255, 159, 28, 0.15);
-  transform: translateY(-5px);
-}
-
-.naruto-glow {
-  text-shadow: 0 0 15px rgba(255, 159, 28, 0.6), 0 0 30px rgba(255, 159, 28, 0.4);
-}
-
 .gold-gradient {
-  background: linear-gradient(135deg, #FF9F1C 0%, #FFD166 50%, #FF9F1C 100%);
+  background: linear-gradient(135deg, #C5A059 0%, #F5E6AB 50%, #C5A059 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.silver-gradient {
-  background: linear-gradient(135deg, #D90429 0%, #EF233C 50%, #D90429 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.gold-button {
+  background: linear-gradient(135deg, #C5A059 0%, #F5E6AB 100%);
+  color: #000;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.gold-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: 0.5s;
+}
+
+.gold-button:hover::after {
+  left: 100%;
+}
+
+.gold-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(197, 160, 89, 0.3);
+}
+
+/* Animations */
+.hover-reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-reveal img {
+  transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.hover-reveal:hover img {
+  transform: scale(1.08);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #020202;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #222;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #FF9F1C;
-}
-
-.premium-border {
-  border: 1px solid rgba(255, 159, 28, 0.3);
-}
-
-.premium-border:hover {
-  border-color: #FF9F1C;
-  box-shadow: 0 0 20px rgba(255, 159, 28, 0.15);
-}
-
-.text-stroke {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-  color: transparent;
+  background: #C5A059;
 }

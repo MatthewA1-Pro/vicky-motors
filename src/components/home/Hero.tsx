@@ -1,98 +1,64 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronRight, Play } from "lucide-react";
 import Link from "next/link";
-
-const heroSlides = [
-  {
-    image: "https://images.unsplash.com/photo-1631214503951-375126d85444?q=80&w=2000&auto=format&fit=crop",
-    title: "Elegance Redefined",
-    subtitle: "Experience the Pinnacle of Luxury",
-    brand: "Rolls-Royce Phantom",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2000&auto=format&fit=crop",
-    title: "Raw Performance",
-    subtitle: "Beyond the Speed of Light",
-    brand: "Lamborghini Revuelto",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2000&auto=format&fit=crop",
-    title: "Timeless Precision",
-    subtitle: "Mastering Every Curve",
-    brand: "Porsche 911 GT3 RS",
-  }
-];
+import { ArrowRight, Play } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0">
-        <motion.div
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 10, ease: "linear" }}
-          className="relative w-full h-full"
-        >
-          <img
-            src={heroSlides[0].image}
-            alt="Hero"
-            className="w-full h-full object-cover opacity-60"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
-        </motion.div>
+    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-luxury-obsidian">
+      {/* Background Media */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2500&auto=format&fit=crop" 
+          alt="Hero Background" 
+          className="w-full h-full object-cover opacity-40 grayscale"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-luxury-obsidian/80 via-transparent to-luxury-obsidian" />
+        <div className="absolute inset-0 bg-gradient-to-r from-luxury-obsidian via-transparent to-luxury-obsidian/40" />
       </div>
 
-      {/* Content */}
-      <div className="relative h-full container mx-auto px-6 flex flex-col justify-center">
-        <div className="max-w-4xl">
+      <div className="container mx-auto px-8 relative z-10">
+        <div className="max-w-5xl">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            transition={{ duration: 1 }}
+            className="flex items-center gap-6 mb-8"
           >
-            <span className="text-luxury-gold tracking-[0.6em] uppercase text-xs font-bold mb-6 block">
-              Luxury Automotive Excellence
-            </span>
+            <span className="h-[1px] w-20 bg-luxury-gold" />
+            <span className="text-premium text-luxury-gold">Legacy in Every Detail</span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-serif leading-[1.1] mb-10 naruto-glow"
+            transition={{ duration: 1, delay: 0.2 }}
+            className="text-[12vw] md:text-[8vw] lg:text-[7vw] leading-[1] font-serif mb-12"
           >
-            Believe In <br />
-            <span className="italic gold-gradient tracking-tight">Excellence</span>
+            Defining the <br />
+            <span className="italic gold-gradient">Exceptional</span>
           </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="text-white/60 text-lg md:text-xl font-light mb-12 max-w-xl leading-relaxed"
-          >
-            Curating the world's most exclusive collection of prestige automobiles for the most discerning collectors.
-          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.1 }}
-            className="flex flex-wrap gap-6"
+            transition={{ duration: 1, delay: 0.4 }}
+            className="flex flex-col md:flex-row items-start md:items-center gap-10"
           >
-            <Link
-              href="/inventory"
-              className="bg-white text-black px-10 py-5 text-sm font-bold tracking-[0.3em] uppercase hover:bg-luxury-gold transition-colors flex items-center group"
+            <Link 
+              href="/inventory" 
+              className="gold-button px-12 py-6 text-xs group flex items-center gap-4"
             >
-              Explore Inventory
-              <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
+              Explore Collection
+              <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
             </Link>
-            <button className="border border-white/20 hover:border-white px-10 py-5 text-sm font-bold tracking-[0.3em] uppercase flex items-center transition-all group backdrop-blur-sm">
-              <Play className="mr-3 fill-white group-hover:fill-luxury-gold group-hover:text-luxury-gold transition-colors" size={16} />
-              Watch Film
+
+            <button className="flex items-center gap-4 group">
+              <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-luxury-gold transition-colors">
+                <Play size={20} fill="currentColor" />
+              </div>
+              <span className="text-[10px] tracking-[0.3em] uppercase font-bold text-white/60 group-hover:text-white">Watch Film</span>
             </button>
           </motion.div>
         </div>
@@ -102,20 +68,16 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6"
       >
-        <span className="text-[10px] tracking-[0.4em] uppercase text-white/40 rotate-90 origin-left ml-4">Scroll</span>
+        <span className="text-[8px] tracking-[0.5em] uppercase text-white/20 vertical-text">Scroll</span>
         <div className="w-[1px] h-20 bg-gradient-to-b from-luxury-gold to-transparent" />
       </motion.div>
 
-      {/* Social Sidebar */}
-      <div className="absolute left-10 bottom-20 hidden lg:flex flex-col gap-8 text-white/40">
-        {["IG", "FB", "YT", "TW"].map((social) => (
-          <Link key={social} href="#" className="text-[10px] font-bold tracking-widest hover:text-luxury-gold transition-colors">
-            {social}
-          </Link>
-        ))}
+      {/* Decorative Text */}
+      <div className="absolute top-1/2 -right-40 -translate-y-1/2 text-[25vw] font-serif font-black text-white/[0.02] select-none pointer-events-none uppercase">
+        V2
       </div>
     </section>
   );

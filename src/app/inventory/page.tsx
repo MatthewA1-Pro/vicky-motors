@@ -4,7 +4,7 @@ import { useState } from "react";
 import { vehicles } from "@/data/vehicles";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
-import { Search, SlidersHorizontal, Grid, List, ArrowUpDown, ChevronRight } from "lucide-react";
+import { Search, Grid, List, ChevronRight, Filter } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function InventoryPage() {
@@ -20,139 +20,132 @@ export default function InventoryPage() {
   );
 
   return (
-    <div className="pt-32 pb-20 min-h-screen bg-luxury-black">
-      <div className="container mx-auto px-6">
+    <div className="pt-40 pb-32 min-h-screen bg-luxury-obsidian">
+      <div className="container mx-auto px-8">
         {/* Header */}
-        <div className="mb-16">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-serif mb-6"
-          >
-            Virtual <span className="italic">Showroom</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-white/40 max-w-2xl text-lg font-light"
-          >
-            Explore our meticulously curated collection of world-class automobiles. Each vehicle is a testament to engineering excellence and bespoke luxury.
-          </motion.p>
+        <div className="mb-24 flex flex-col md:flex-row justify-between items-end gap-12">
+          <div className="max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-4 mb-6"
+            >
+              <div className="w-12 h-[1px] bg-luxury-gold" />
+              <span className="text-premium text-luxury-gold">The Collection</span>
+            </motion.div>
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-7xl md:text-9xl font-serif"
+            >
+              Virtual <span className="italic">Showroom</span>
+            </motion.h1>
+          </div>
+          <p className="text-white/40 max-w-sm text-sm tracking-widest uppercase leading-loose">
+            Explore our meticulously curated selection of world-class automobiles.
+          </p>
         </div>
 
-        {/* Filters & Search */}
-        <div className="flex flex-col lg:flex-row gap-8 items-center justify-between mb-12 border-b border-white/5 pb-8">
+        {/* Filter Bar */}
+        <div className="flex flex-col lg:flex-row gap-8 items-center justify-between mb-20 border-y border-white/5 py-10">
           <div className="relative w-full lg:w-96">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
+            <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-white/20" size={18} />
             <input 
               type="text" 
               placeholder="SEARCH BY MODEL OR BRAND"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 px-12 py-4 text-xs tracking-[0.2em] focus:outline-none focus:border-luxury-gold transition-colors"
+              className="w-full bg-white/5 border border-white/10 px-16 py-5 text-[10px] tracking-[0.3em] focus:outline-none focus:border-luxury-gold transition-colors font-bold"
             />
           </div>
 
-          <div className="flex flex-wrap items-center gap-6 w-full lg:w-auto">
-            <div className="flex bg-white/5 p-1">
+          <div className="flex flex-wrap items-center gap-10 w-full lg:w-auto">
+            <nav className="flex gap-10">
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setCategory(cat)}
-                  className={`px-6 py-3 text-[10px] tracking-[0.2em] uppercase font-bold transition-all ${
-                    category === cat ? "bg-luxury-gold text-black" : "hover:text-luxury-gold"
+                  className={`text-[10px] tracking-[0.4em] uppercase font-bold transition-all ${
+                    category === cat ? "text-luxury-gold" : "text-white/40 hover:text-white"
                   }`}
                 >
                   {cat}
                 </button>
               ))}
-            </div>
+            </nav>
 
-            <div className="flex items-center gap-4 ml-auto">
+            <div className="h-8 w-[1px] bg-white/10 hidden lg:block" />
+
+            <div className="flex items-center gap-6">
               <button 
                 onClick={() => setViewType("grid")}
-                className={`p-2 transition-colors ${viewType === "grid" ? "text-luxury-gold" : "text-white/30 hover:text-white"}`}
+                className={`transition-colors ${viewType === "grid" ? "text-luxury-gold" : "text-white/20 hover:text-white"}`}
               >
                 <Grid size={20} />
               </button>
               <button 
                 onClick={() => setViewType("list")}
-                className={`p-2 transition-colors ${viewType === "list" ? "text-luxury-gold" : "text-white/30 hover:text-white"}`}
+                className={`transition-colors ${viewType === "list" ? "text-luxury-gold" : "text-white/20 hover:text-white"}`}
               >
                 <List size={20} />
-              </button>
-              <div className="h-6 w-[1px] bg-white/10 mx-2" />
-              <button className="flex items-center gap-2 text-[10px] tracking-widest uppercase text-white/60 hover:text-white">
-                <ArrowUpDown size={16} />
-                Sort By
               </button>
             </div>
           </div>
         </div>
 
-        {/* Results Info */}
-        <div className="flex justify-between items-center mb-8">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-white/30">
-            Showing <span className="text-white">{filteredVehicles.length}</span> Results
-          </p>
-        </div>
-
-        {/* Grid */}
-        <div className={viewType === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" : "flex flex-col gap-8"}>
+        {/* Inventory Grid */}
+        <div className={viewType === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16" : "flex flex-col gap-12"}>
           <AnimatePresence mode="popLayout">
             {filteredVehicles.slice(0, 12).map((vehicle, index) => (
               <motion.div
                 key={vehicle.id}
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className={`naruto-card group relative overflow-hidden flex ${viewType === "list" ? "flex-row h-80" : "flex-col"} hover:border-luxury-gold/30 transition-all`}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.6, delay: index * 0.05 }}
+                className={`group flex flex-col ${viewType === "list" ? "md:flex-row h-auto md:h-96" : ""}`}
               >
-                {/* Image */}
-                <div className={`relative overflow-hidden bg-zinc-900 ${viewType === "list" ? "w-1/3 h-full" : "aspect-[16/10]"}`}>
+                <div className={`relative overflow-hidden bg-zinc-900 ${viewType === "list" ? "w-full md:w-[45%]" : "aspect-[16/10]"}`}>
                   <img 
                     src={vehicle.images[0]} 
                     alt={vehicle.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md text-[9px] tracking-widest uppercase border border-white/10">
+                  <div className="absolute top-6 left-6 px-4 py-2 bg-black/60 backdrop-blur-md text-[9px] tracking-widest uppercase border border-white/10 font-bold">
                     {vehicle.category}
                   </div>
                 </div>
 
-                {/* Info */}
-                <div className={`p-12 flex flex-col justify-between ${viewType === "list" ? "flex-1" : ""}`}>
+                <div className="py-10 flex flex-col justify-between flex-1 md:px-6">
                   <div>
                     <div className="flex justify-between items-start mb-6">
-                      <h3 className="text-3xl font-serif tracking-widest group-hover:text-luxury-gold transition-colors naruto-glow">{vehicle.name}</h3>
+                      <h3 className="text-3xl font-serif tracking-widest group-hover:gold-gradient transition-all">{vehicle.name}</h3>
+                      <span className="text-xl font-bold tracking-tighter text-luxury-gold">{formatPrice(vehicle.price)}</span>
                     </div>
-                    <p className="text-white/40 text-[11px] tracking-[0.4em] uppercase mb-12">{vehicle.year} &bull; {vehicle.brand}</p>
                     
-                    <div className="grid grid-cols-3 gap-10 border-t border-white/10 pt-10">
+                    <div className="grid grid-cols-3 gap-8 border-y border-white/5 py-8 mt-4">
                       <div>
-                        <span className="text-[10px] tracking-[0.4em] uppercase text-white/40 block mb-3">Price</span>
-                        <span className="text-lg font-bold tracking-widest text-luxury-gold">{formatPrice(vehicle.price)}</span>
+                        <span className="text-[8px] tracking-[0.4em] uppercase text-white/30 block mb-2">Power</span>
+                        <span className="text-xs font-bold">{vehicle.hp} HP</span>
                       </div>
                       <div>
-                        <span className="text-[10px] tracking-[0.4em] uppercase text-white/40 block mb-3">Mileage</span>
-                        <span className="text-lg font-bold tracking-widest">{vehicle.mileage.toLocaleString()} mi</span>
+                        <span className="text-[8px] tracking-[0.4em] uppercase text-white/30 block mb-2">0-60 MPH</span>
+                        <span className="text-xs font-bold">{vehicle.acceleration}</span>
                       </div>
                       <div>
-                        <span className="text-[10px] tracking-[0.4em] uppercase text-white/40 block mb-3">Power</span>
-                        <span className="text-lg font-bold tracking-widest">{vehicle.hp} HP</span>
+                        <span className="text-[8px] tracking-[0.4em] uppercase text-white/30 block mb-2">Mileage</span>
+                        <span className="text-xs font-bold">{vehicle.mileage.toLocaleString()}</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-12 flex items-center justify-between">
+                  <div className="mt-10 flex items-center justify-between">
                     <Link 
                       href={`/car/${vehicle.id}`}
-                      className="text-[11px] tracking-[0.3em] uppercase font-bold text-luxury-gold hover:text-white transition-colors flex items-center gap-2 group/link"
+                      className="text-[10px] tracking-[0.4em] uppercase font-bold text-luxury-gold hover:text-white transition-colors flex items-center gap-3 group/link"
                     >
-                      View Details <ChevronRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
+                      View Dossier <ChevronRight size={14} className="group-hover/link:translate-x-2 transition-transform" />
                     </Link>
                   </div>
                 </div>
@@ -160,18 +153,6 @@ export default function InventoryPage() {
             ))}
           </AnimatePresence>
         </div>
-
-        {filteredVehicles.length === 0 && (
-          <div className="py-40 text-center">
-            <h3 className="text-2xl font-serif mb-4 text-white/40">No vehicles match your search</h3>
-            <button 
-              onClick={() => { setSearch(""); setCategory("All"); }}
-              className="text-luxury-gold uppercase tracking-widest text-xs hover:text-white"
-            >
-              Clear all filters
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );

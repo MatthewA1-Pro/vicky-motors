@@ -1,27 +1,34 @@
+"use client";
+
 import Link from "next/link";
-import { Camera, Send, MessageCircle, Play, Mail, Phone, MapPin } from "lucide-react";
+import { 
+  Instagram, 
+  Twitter, 
+  Youtube, 
+  Mail, 
+  MapPin, 
+  Phone, 
+  ArrowUpRight,
+  Globe
+} from "lucide-react";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-luxury-black border-t border-white/5 pt-20 pb-10 overflow-hidden">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-          {/* Brand Info */}
-          <div className="space-y-6">
+    <footer className="bg-luxury-obsidian border-t border-white/5 pt-32 pb-16">
+      <div className="container mx-auto px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 mb-32">
+          {/* Brand Column */}
+          <div className="lg:col-span-5 space-y-12">
             <Link href="/" className="flex flex-col">
-              <span className="text-3xl font-serif tracking-[0.2em] font-bold uppercase">LUXE</span>
-              <span className="text-[10px] tracking-[0.5em] text-luxury-silver font-sans uppercase -mt-1 ml-1">
-                Auto Gallery
-              </span>
+              <span className="text-4xl font-serif tracking-[0.3em] font-black uppercase">LUXE</span>
+              <span className="text-[10px] tracking-[0.6em] text-luxury-gold uppercase -mt-1 ml-1 font-bold">Auto Gallery</span>
             </Link>
-            <p className="text-white/60 leading-relaxed font-light">
-              Redefining the standard of luxury automotive excellence. Discover an exclusive collection of the world's most prestigious vehicles.
+            <p className="text-white/40 text-lg leading-relaxed max-w-md font-light">
+              Curating the world's most exceptional automotive masterpieces for the most discerning collectors since 1998.
             </p>
-            <div className="flex space-x-5">
-              {[Camera, MessageCircle, Play, Send].map((Icon, i) => (
-                <Link key={i} href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-luxury-gold hover:text-luxury-gold transition-all">
+            <div className="flex gap-6">
+              {[Instagram, Twitter, Youtube, Globe].map((Icon, i) => (
+                <Link key={i} href="#" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-luxury-gold hover:text-luxury-gold transition-all">
                   <Icon size={18} />
                 </Link>
               ))}
@@ -29,78 +36,46 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-luxury-gold font-serif text-lg tracking-widest mb-8 uppercase">Showroom</h4>
-            <ul className="space-y-4">
-              {["Inventory", "Featured", "Latest Arrivals", "Pre-owned", "Special Editions"].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-white/50 hover:text-white transition-colors tracking-wide text-sm uppercase">
-                    {item}
-                  </Link>
-                </li>
+          <div className="lg:col-span-2 space-y-10">
+            <h4 className="text-[10px] tracking-[0.5em] uppercase text-white/20 font-bold">Navigation</h4>
+            <nav className="flex flex-col space-y-4">
+              {["Showroom", "Heritage", "Experience", "Journal", "Concierge"].map((link) => (
+                <Link key={link} href="#" className="text-sm font-medium hover:text-luxury-gold transition-colors">{link}</Link>
               ))}
-            </ul>
-          </div>
-
-          {/* Experience */}
-          <div>
-            <h4 className="text-luxury-gold font-serif text-lg tracking-widest mb-8 uppercase">Experience</h4>
-            <ul className="space-y-4">
-              {["About Us", "Our Services", "Financing", "Test Drive", "Privacy Policy"].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-white/50 hover:text-white transition-colors tracking-wide text-sm uppercase">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            </nav>
           </div>
 
           {/* Contact */}
-          <div className="space-y-6">
-            <h4 className="text-luxury-gold font-serif text-lg tracking-widest mb-8 uppercase">Contact</h4>
-            <div className="flex items-start space-x-4">
-              <MapPin size={20} className="text-luxury-gold flex-shrink-0 mt-1" />
-              <p className="text-white/60 text-sm leading-relaxed">
-                725 5th Ave, New York,<br />NY 10022, United States
-              </p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Phone size={20} className="text-luxury-gold flex-shrink-0" />
-              <p className="text-white/60 text-sm">+1 (800) LUXE-AUTO</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Mail size={20} className="text-luxury-gold flex-shrink-0" />
-              <p className="text-white/60 text-sm">sales@luxeauto.com</p>
+          <div className="lg:col-span-5 space-y-10">
+            <h4 className="text-[10px] tracking-[0.5em] uppercase text-white/20 font-bold">Contact Us</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="space-y-4">
+                <p className="text-[9px] tracking-widest uppercase text-luxury-gold font-bold">Global Headquarters</p>
+                <p className="text-sm leading-relaxed text-white/60">
+                  888 Prestige Boulevard<br />
+                  Beverly Hills, CA 90210
+                </p>
+              </div>
+              <div className="space-y-4">
+                <p className="text-[9px] tracking-widest uppercase text-luxury-gold font-bold">Direct Inquiries</p>
+                <div className="space-y-2">
+                  <Link href="tel:+18005550199" className="block text-sm hover:text-luxury-gold transition-colors">+1 (800) LUXE-AUTO</Link>
+                  <Link href="mailto:concierge@luxeauto.com" className="block text-sm hover:text-luxury-gold transition-colors">concierge@luxeauto.com</Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Newsletter */}
-        <div className="border-y border-white/5 py-12 mb-12 flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="text-center lg:text-left">
-            <h3 className="text-2xl font-serif mb-2">Join the Inner Circle</h3>
-            <p className="text-white/40 text-sm tracking-wide">Subscribe for exclusive updates on rare arrivals and events.</p>
-          </div>
-          <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
-            <input 
-              type="email" 
-              placeholder="YOUR EMAIL ADDRESS"
-              className="bg-transparent border border-white/10 px-6 py-4 w-full sm:w-80 focus:outline-none focus:border-luxury-gold text-xs tracking-[0.2em] transition-colors"
-            />
-            <button className="bg-luxury-gold text-black font-bold text-xs tracking-[0.3em] px-10 py-4 hover:bg-white transition-colors uppercase">
-              Subscribe
-            </button>
-          </div>
-        </div>
-
-        {/* Bottom */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] tracking-[0.3em] text-white/30 uppercase">
-          <p>&copy; {currentYear} LUXE AUTO GALLERY. ALL RIGHTS RESERVED.</p>
-          <div className="flex space-x-8">
-            <Link href="#" className="hover:text-white transition-colors">Cookies</Link>
-            <Link href="#" className="hover:text-white transition-colors">Accessibility</Link>
-            <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
+        {/* Bottom Bar */}
+        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold">
+            &copy; 2026 Luxe Auto Gallery. All Rights Reserved.
+          </p>
+          <div className="flex gap-12">
+            <Link href="#" className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="#" className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="#" className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold hover:text-white transition-colors">Cookies</Link>
           </div>
         </div>
       </div>
