@@ -69,16 +69,16 @@ export default function FeaturedInventory() {
               </div>
 
               {/* Info */}
-              <div className="pt-8">
-                <div className="flex justify-between items-start mb-6">
+              <div className="pt-12 px-2">
+                <div className="flex justify-between items-start mb-10">
                   <div>
-                    <h3 className="text-2xl font-serif tracking-wide group-hover:text-luxury-gold transition-colors">{vehicle.name}</h3>
-                    <p className="text-white/40 text-[10px] tracking-[0.3em] uppercase mt-2">{vehicle.year} &bull; {vehicle.brand}</p>
+                    <h3 className="text-3xl font-serif tracking-widest group-hover:text-luxury-gold transition-colors naruto-glow">{vehicle.name}</h3>
+                    <p className="text-white/40 text-[11px] tracking-[0.4em] uppercase mt-4">{vehicle.year} &bull; {vehicle.brand}</p>
                   </div>
-                  <span className="text-xl font-medium tracking-widest">{formatPrice(vehicle.price)}</span>
+                  <span className="text-2xl font-bold tracking-widest text-luxury-gold">{formatPrice(vehicle.price)}</span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-6 mt-6">
+                <div className="grid grid-cols-3 gap-10 border-t border-white/10 pt-10 mt-10">
                   <div className="flex flex-col gap-2">
                     <Gauge size={16} className="text-luxury-gold" />
                     <span className="text-[10px] tracking-widest uppercase text-white/40">Power</span>

@@ -101,7 +101,7 @@ export default function InventoryPage() {
         {/* Grid */}
         <div className={viewType === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" : "flex flex-col gap-8"}>
           <AnimatePresence mode="popLayout">
-            {filteredVehicles.map((vehicle, index) => (
+            {filteredVehicles.slice(0, 12).map((vehicle, index) => (
               <motion.div
                 key={vehicle.id}
                 layout
@@ -109,16 +109,14 @@ export default function InventoryPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                className={`group bg-luxury-charcoal/30 border border-white/5 overflow-hidden hover:border-white/20 transition-all ${
-                  viewType === "list" ? "flex flex-col md:flex-row h-auto md:h-80" : ""
-                }`}
+                className={`naruto-card group relative overflow-hidden flex ${viewType === "list" ? "flex-row h-80" : "flex-col"} hover:border-luxury-gold/30 transition-all`}
               >
                 {/* Image */}
-                <div className={`relative overflow-hidden bg-zinc-900 ${viewType === "list" ? "w-full md:w-[40%] h-64 md:h-full" : "aspect-[16/10]"}`}>
+                <div className={`relative overflow-hidden bg-zinc-900 ${viewType === "list" ? "w-1/3 h-full" : "aspect-[16/10]"}`}>
                   <img 
                     src={vehicle.images[0]} 
                     alt={vehicle.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md text-[9px] tracking-widest uppercase border border-white/10">
                     {vehicle.category}
@@ -126,39 +124,36 @@ export default function InventoryPage() {
                 </div>
 
                 {/* Info */}
-                <div className={`p-10 flex flex-col justify-between ${viewType === "list" ? "flex-1" : ""}`}>
+                <div className={`p-12 flex flex-col justify-between ${viewType === "list" ? "flex-1" : ""}`}>
                   <div>
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-2xl font-serif tracking-wide group-hover:text-luxury-gold transition-colors">{vehicle.name}</h3>
+                    <div className="flex justify-between items-start mb-6">
+                      <h3 className="text-3xl font-serif tracking-widest group-hover:text-luxury-gold transition-colors naruto-glow">{vehicle.name}</h3>
                     </div>
-                    <p className="text-white/40 text-[10px] tracking-[0.3em] uppercase mb-10">{vehicle.year} &bull; {vehicle.brand}</p>
+                    <p className="text-white/40 text-[11px] tracking-[0.4em] uppercase mb-12">{vehicle.year} &bull; {vehicle.brand}</p>
                     
-                    <div className="grid grid-cols-3 gap-8 border-t border-white/5 pt-10">
+                    <div className="grid grid-cols-3 gap-10 border-t border-white/10 pt-10">
                       <div>
-                        <span className="text-[9px] tracking-[0.4em] uppercase text-white/40 block mb-2">Price</span>
-                        <span className="text-base font-medium tracking-wider">{formatPrice(vehicle.price)}</span>
+                        <span className="text-[10px] tracking-[0.4em] uppercase text-white/40 block mb-3">Price</span>
+                        <span className="text-lg font-bold tracking-widest text-luxury-gold">{formatPrice(vehicle.price)}</span>
                       </div>
                       <div>
-                        <span className="text-[9px] tracking-[0.4em] uppercase text-white/40 block mb-2">Mileage</span>
-                        <span className="text-base font-medium tracking-wider">{vehicle.mileage.toLocaleString()} mi</span>
+                        <span className="text-[10px] tracking-[0.4em] uppercase text-white/40 block mb-3">Mileage</span>
+                        <span className="text-lg font-bold tracking-widest">{vehicle.mileage.toLocaleString()} mi</span>
                       </div>
                       <div>
-                        <span className="text-[9px] tracking-[0.4em] uppercase text-white/40 block mb-2">HP</span>
-                        <span className="text-base font-medium tracking-wider">{vehicle.hp}</span>
+                        <span className="text-[10px] tracking-[0.4em] uppercase text-white/40 block mb-3">Power</span>
+                        <span className="text-lg font-bold tracking-widest">{vehicle.hp} HP</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-8 flex items-center justify-between">
+                  <div className="mt-12 flex items-center justify-between">
                     <Link 
                       href={`/car/${vehicle.id}`}
-                      className="text-[10px] tracking-[0.3em] uppercase font-bold text-luxury-gold hover:text-white transition-colors flex items-center gap-2 group/link"
+                      className="text-[11px] tracking-[0.3em] uppercase font-bold text-luxury-gold hover:text-white transition-colors flex items-center gap-2 group/link"
                     >
                       View Details <ChevronRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
                     </Link>
-                    <button className="text-white/30 hover:text-luxury-gold transition-colors">
-                      <SlidersHorizontal size={18} />
-                    </button>
                   </div>
                 </div>
               </motion.div>

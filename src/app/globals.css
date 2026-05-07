@@ -97,8 +97,30 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+section {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
+
+.naruto-card {
+  background: rgba(18, 18, 18, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 159, 28, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.naruto-card:hover {
+  border-color: #FF9F1C;
+  box-shadow: 0 0 30px rgba(255, 159, 28, 0.15);
+  transform: translateY(-5px);
+}
+
+.naruto-glow {
+  text-shadow: 0 0 15px rgba(255, 159, 28, 0.6), 0 0 30px rgba(255, 159, 28, 0.4);
+}
+
 .gold-gradient {
-  background: linear-gradient(135deg, #FF9F1C 0%, #FFBF69 50%, #FF9F1C 100%);
+  background: linear-gradient(135deg, #FF9F1C 0%, #FFD166 50%, #FF9F1C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
