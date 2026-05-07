@@ -52,7 +52,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       },
       aud: 'authenticated',
       role: 'authenticated',
-    } as User;
+      app_metadata: {},
+      created_at: new Date().toISOString(),
+    } as unknown as User;
     setUser(demoUser);
     setLoading(false);
   };
