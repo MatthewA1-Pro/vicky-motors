@@ -49,6 +49,23 @@ body {
   font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.premium-tracking {
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+}
+
+.subtle-tracking {
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 .glass {

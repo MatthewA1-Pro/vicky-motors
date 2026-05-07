@@ -126,25 +126,25 @@ export default function InventoryPage() {
                 </div>
 
                 {/* Info */}
-                <div className={`p-8 flex flex-col justify-between ${viewType === "list" ? "flex-1" : ""}`}>
+                <div className={`p-10 flex flex-col justify-between ${viewType === "list" ? "flex-1" : ""}`}>
                   <div>
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-xl font-serif group-hover:text-luxury-gold transition-colors">{vehicle.name}</h3>
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-2xl font-serif tracking-wide group-hover:text-luxury-gold transition-colors">{vehicle.name}</h3>
                     </div>
-                    <p className="text-white/40 text-[10px] tracking-[0.2em] uppercase mb-6">{vehicle.year} &bull; {vehicle.brand}</p>
+                    <p className="text-white/40 text-[10px] tracking-[0.3em] uppercase mb-10">{vehicle.year} &bull; {vehicle.brand}</p>
                     
-                    <div className="grid grid-cols-3 gap-6 border-t border-white/5 pt-6">
+                    <div className="grid grid-cols-3 gap-8 border-t border-white/5 pt-10">
                       <div>
-                        <span className="text-[9px] tracking-widest uppercase text-white/30 block mb-1">Price</span>
-                        <span className="text-sm font-medium">{formatPrice(vehicle.price)}</span>
+                        <span className="text-[9px] tracking-[0.4em] uppercase text-white/40 block mb-2">Price</span>
+                        <span className="text-base font-medium tracking-wider">{formatPrice(vehicle.price)}</span>
                       </div>
                       <div>
-                        <span className="text-[9px] tracking-widest uppercase text-white/30 block mb-1">Mileage</span>
-                        <span className="text-sm font-medium">{vehicle.mileage.toLocaleString()} mi</span>
+                        <span className="text-[9px] tracking-[0.4em] uppercase text-white/40 block mb-2">Mileage</span>
+                        <span className="text-base font-medium tracking-wider">{vehicle.mileage.toLocaleString()} mi</span>
                       </div>
                       <div>
-                        <span className="text-[9px] tracking-widest uppercase text-white/30 block mb-1">HP</span>
-                        <span className="text-sm font-medium">{vehicle.hp}</span>
+                        <span className="text-[9px] tracking-[0.4em] uppercase text-white/40 block mb-2">HP</span>
+                        <span className="text-base font-medium tracking-wider">{vehicle.hp}</span>
                       </div>
                     </div>
                   </div>

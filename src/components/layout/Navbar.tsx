@@ -62,7 +62,7 @@ export default function Navbar() {
             >
               <Link
                 href={link.href}
-                className="text-sm font-medium tracking-widest uppercase hover:text-luxury-gold transition-colors relative group"
+                className="text-[11px] font-bold tracking-[0.25em] uppercase hover:text-luxury-gold transition-all duration-300 relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-luxury-gold transition-all duration-300 group-hover:w-full" />
