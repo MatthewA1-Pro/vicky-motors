@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const brands = [
   { name: "Rolls-Royce", models: ["Phantom", "Ghost", "Cullinan", "Spectre"], category: "Luxury" },
   { name: "Ferrari", models: ["SF90", "812", "296 GTB", "F8", "Roma", "LaFerrari"], category: "Sports" },
@@ -13,7 +16,6 @@ const brands = [
   { name: "Mercedes-Benz", models: ["AMG ONE", "G 63", "Maybach S 680", "GT 63 S"], category: "Luxury" }
 ];
 
-// High-quality Unsplash IDs for various cars
 const unsplashIds = [
   "1631214503951-375126d85444", "1544636331-e26879cd4d9b", "1520031441872-265e4ff70366", "1614162692292-7ac56d7f7f1e",
   "1503376780353-7e6692767b70", "1542362567-b058c02b0147", "1511919884226-fd3cad34687c", "1554224155-8d04cb21cd6c",
@@ -40,7 +42,6 @@ const generateCars = (count) => {
     const transmission = transmissions[Math.floor(Math.random() * transmissions.length)];
     const fuelType = engine.includes("Electric") ? "Electric" : engine.includes("Hybrid") ? "Hybrid" : "Petrol";
     
-    // To minimize duplicates, we cycle through the pool and add random sigs
     const imgIndex1 = (i * 2) % unsplashIds.length;
     const imgIndex2 = (i * 2 + 1) % unsplashIds.length;
     
@@ -77,7 +78,7 @@ const generateCars = (count) => {
 
 const allCars = generateCars(1000);
 
-console.log(`export interface Vehicle {
+const content = `export interface Vehicle {
   id: string;
   name: string;
   brand: string;
@@ -98,4 +99,7 @@ console.log(`export interface Vehicle {
   description: string;
 }
 
-export const vehicles: Vehicle[] = ${JSON.stringify(allCars, null, 2)};`);
+export const vehicles: Vehicle[] = ${JSON.stringify(allCars, null, 2)};`;
+
+fs.writeFileSync(path.join(__dirname, 'vehicles.ts'), content, 'utf8');
+console.log('Successfully generated vehicles.ts in UTF-8');
