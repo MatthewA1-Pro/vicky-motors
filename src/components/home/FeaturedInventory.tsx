@@ -4,9 +4,54 @@ import { motion } from "framer-motion";
 import { vehicles } from "@/data/vehicles";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
-import { ArrowUpRight, Plus } from "lucide-react";
+import { ArrowUpRight, Heart } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function FeaturedInventory() {
+  const { user } = useAuth();
+  const router = useRouter();
+  const [wishlistIds, setWishlistIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      fetchWishlist();
+    }
+  }, [user]);
+
+  const fetchWishlist = async () => {
+    const { data } = await supabase
+      .from('wishlist')
+      .select('car_id')
+      .eq('user_id', user?.id);
+    if (data) setWishlistIds(data.map(i => i.car_id));
+  };
+
+  const handleWishlist = async (e: React.MouseEvent, carId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (!user) {
+      router.push('/auth/login');
+      return;
+    }
+
+    if (wishlistIds.includes(carId)) {
+      await supabase
+        .from('wishlist')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('car_id', carId);
+      setWishlistIds(prev => prev.filter(id => id !== carId));
+    } else {
+      await supabase
+        .from('wishlist')
+        .insert({ user_id: user.id, car_id: carId });
+      setWishlistIds(prev => [...prev, carId]);
+    }
+  };
   return (
     <section className="py-40 bg-luxury-obsidian relative overflow-hidden">
       <div className="container mx-auto px-8">
@@ -50,37 +95,41 @@ export default function FeaturedInventory() {
               className="group"
             >
               <div className="relative aspect-[16/11] overflow-hidden bg-zinc-900 hover-reveal">
-                <img 
-                  src={vehicle.images[0]} 
-                  alt={vehicle.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700" />
-                
-                {/* Hover Quick Specs */}
-                <div className="absolute inset-x-12 bottom-12 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
-                  <div className="grid grid-cols-3 gap-8 pt-10 border-t border-white/20">
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[8px] tracking-[0.3em] uppercase text-white/40">Performance</span>
-                      <span className="text-xs font-bold">{vehicle.hp} HP</span>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[8px] tracking-[0.3em] uppercase text-white/40">Acceleration</span>
-                      <span className="text-xs font-bold">{vehicle.acceleration}</span>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[8px] tracking-[0.3em] uppercase text-white/40">Engine</span>
-                      <span className="text-xs font-bold">{vehicle.engine.split(' ')[0]}</span>
+                <Link href={`/car/${vehicle.id}`} className="block w-full h-full">
+                  <img 
+                    src={vehicle.images[0]} 
+                    alt={vehicle.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-700" />
+                  
+                  {/* Hover Quick Specs */}
+                  <div className="absolute inset-x-12 bottom-12 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
+                    <div className="grid grid-cols-3 gap-8 pt-10 border-t border-white/20">
+                      <div className="flex flex-col gap-1">
+                        <span className="text-[8px] tracking-[0.3em] uppercase text-white/40">Performance</span>
+                        <span className="text-xs font-bold">{vehicle.hp} HP</span>
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <span className="text-[8px] tracking-[0.3em] uppercase text-white/40">Acceleration</span>
+                        <span className="text-xs font-bold">{vehicle.acceleration}</span>
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <span className="text-[8px] tracking-[0.3em] uppercase text-white/40">Engine</span>
+                        <span className="text-xs font-bold">{vehicle.engine.split(' ')[0]}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <Link 
-                  href={`/car/${vehicle.id}`}
-                  className="absolute top-8 right-8 w-14 h-14 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-luxury-gold hover:text-black"
-                >
-                  <Plus size={24} />
                 </Link>
+
+                <button 
+                  onClick={(e) => handleWishlist(e, vehicle.id)}
+                  className={`absolute top-8 right-8 w-14 h-14 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110 z-10 ${
+                    wishlistIds.includes(vehicle.id) ? "bg-luxury-gold text-black border-luxury-gold opacity-100" : "hover:text-luxury-gold"
+                  }`}
+                >
+                  <Heart size={24} fill={wishlistIds.includes(vehicle.id) ? "currentColor" : "none"} />
+                </button>
               </div>
 
               <div className="mt-12 flex justify-between items-start">

@@ -4,13 +4,54 @@ import { useState } from "react";
 import { vehicles } from "@/data/vehicles";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
-import { Search, Grid, List, ChevronRight, Filter } from "lucide-react";
+import { Search, Grid, List, ChevronRight, Heart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function InventoryPage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [viewType, setViewType] = useState<"grid" | "list">("grid");
+  const { user } = useAuth();
+  const router = useRouter();
+  const [wishlistIds, setWishlistIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      fetchWishlist();
+    }
+  }, [user]);
+
+  const fetchWishlist = async () => {
+    const { data } = await supabase
+      .from('wishlist')
+      .select('car_id')
+      .eq('user_id', user?.id);
+    if (data) setWishlistIds(data.map(i => i.car_id));
+  };
+
+  const handleWishlist = async (carId: string) => {
+    if (!user) {
+      router.push('/auth/login');
+      return;
+    }
+
+    if (wishlistIds.includes(carId)) {
+      await supabase
+        .from('wishlist')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('car_id', carId);
+      setWishlistIds(prev => prev.filter(id => id !== carId));
+    } else {
+      await supabase
+        .from('wishlist')
+        .insert({ user_id: user.id, car_id: carId });
+      setWishlistIds(prev => [...prev, carId]);
+    }
+  };
 
   const categories = ["All", "Sports", "Luxury", "SUV", "Hypercar", "Electric"];
 
@@ -112,6 +153,17 @@ export default function InventoryPage() {
                     alt={vehicle.name}
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
+                  
+                  {/* Wishlist Heart */}
+                  <button 
+                    onClick={() => handleWishlist(vehicle.id)}
+                    className={`absolute top-6 right-6 w-12 h-12 rounded-full glass flex items-center justify-center transition-all duration-500 hover:scale-110 z-10 ${
+                      wishlistIds.includes(vehicle.id) ? "bg-luxury-gold text-black border-luxury-gold" : "hover:text-luxury-gold"
+                    }`}
+                  >
+                    <Heart size={18} fill={wishlistIds.includes(vehicle.id) ? "currentColor" : "none"} />
+                  </button>
+
                   <div className="absolute top-6 left-6 px-4 py-2 bg-black/60 backdrop-blur-md text-[9px] tracking-widest uppercase border border-white/10 font-bold">
                     {vehicle.category}
                   </div>
