@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Mail, Lock, ArrowRight, Chrome, Apple } from "lucide-react";
+import { Mail, Lock, ArrowRight, Globe, Command } from "lucide-react";
 
 export default function LoginPage() {
   return (
@@ -66,10 +66,10 @@ export default function LoginPage() {
 
           <div className="grid grid-cols-2 gap-4">
             <button className="flex items-center justify-center gap-3 border border-white/10 py-4 hover:bg-white/5 transition-colors text-[10px] tracking-widest uppercase font-bold">
-              <Chrome size={16} /> Google
+              <Globe size={16} /> Google
             </button>
             <button className="flex items-center justify-center gap-3 border border-white/10 py-4 hover:bg-white/5 transition-colors text-[10px] tracking-widest uppercase font-bold">
-              <Apple size={16} /> Apple
+              <Command size={16} /> Apple
             </button>
           </div>
 

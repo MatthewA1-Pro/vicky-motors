@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import { Camera, Send, MessageCircle, Play, Mail, Phone, MapPin } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -20,7 +20,7 @@ export default function Footer() {
               Redefining the standard of luxury automotive excellence. Discover an exclusive collection of the world's most prestigious vehicles.
             </p>
             <div className="flex space-x-5">
-              {[Instagram, Facebook, Youtube, Twitter].map((Icon, i) => (
+              {[Camera, MessageCircle, Play, Send].map((Icon, i) => (
                 <Link key={i} href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-luxury-gold hover:text-luxury-gold transition-all">
                   <Icon size={18} />
                 </Link>
