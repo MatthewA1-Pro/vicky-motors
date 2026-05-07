@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import { vehicles } from "@/data/vehicles";
 
 export default function BuyerDashboard() {
   const { user, loading, signOut } = useAuth();
@@ -40,8 +41,17 @@ export default function BuyerDashboard() {
           .eq('email', user.email);
         if (iqData) setInquiries(iqData);
 
-        // Mock wishlist for now or fetch if table exists
-        setWishlist([]); 
+        // Fetch real wishlist
+        const { data: wlData } = await supabase
+          .from('wishlist')
+          .select('car_id')
+          .eq('user_id', user.id);
+        
+        if (wlData) {
+          const wlIds = wlData.map(i => i.car_id);
+          const wlVehicles = vehicles.filter(v => wlIds.includes(v.id));
+          setWishlist(wlVehicles);
+        }
       };
       fetchData();
     }
@@ -220,10 +230,43 @@ export default function BuyerDashboard() {
                 )}
 
                 {activeTab === 'wishlist' && (
-                  <div className="glass p-32 text-center">
-                    <Heart size={40} className="mx-auto text-white/10 mb-6" />
-                    <p className="text-white/30 uppercase tracking-[0.3em] text-sm">Your wishlist is currently empty</p>
-                    <Link href="/inventory" className="inline-block mt-8 gold-button px-10 py-4 text-[10px]">Browse Inventory</Link>
+                  <div className="space-y-6">
+                    {wishlist.length > 0 ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {wishlist.map((car) => (
+                          <div key={car.id} className="glass group overflow-hidden">
+                            <div className="relative aspect-video overflow-hidden">
+                              <img src={car.images[0]} alt={car.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                              <button 
+                                className="absolute top-4 right-4 w-10 h-10 rounded-full glass flex items-center justify-center text-luxury-gold"
+                                onClick={async () => {
+                                  await supabase.from('wishlist').delete().eq('user_id', user.id).eq('car_id', car.id);
+                                  setWishlist(prev => prev.filter(v => v.id !== car.id));
+                                }}
+                              >
+                                <Heart size={16} fill="currentColor" />
+                              </button>
+                            </div>
+                            <div className="p-6">
+                              <div className="flex justify-between items-start mb-4">
+                                <div>
+                                  <h4 className="text-xl font-serif">{car.name}</h4>
+                                  <p className="text-[10px] tracking-widest uppercase text-white/40 mt-1">{car.brand} &bull; {car.year}</p>
+                                </div>
+                                <span className="text-sm font-bold text-luxury-gold">${car.price.toLocaleString()}</span>
+                              </div>
+                              <Link href={`/car/${car.id}`} className="block w-full text-center py-3 border border-white/10 text-[9px] tracking-widest uppercase font-bold hover:bg-white hover:text-black transition-all">View Dossier</Link>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="glass p-32 text-center">
+                        <Heart size={40} className="mx-auto text-white/10 mb-6" />
+                        <p className="text-white/30 uppercase tracking-[0.3em] text-sm">Your wishlist is currently empty</p>
+                        <Link href="/inventory" className="inline-block mt-8 gold-button px-10 py-4 text-[10px]">Browse Inventory</Link>
+                      </div>
+                    )}
                   </div>
                 )}
 
