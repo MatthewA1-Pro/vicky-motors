@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { 
-  Instagram, 
-  Twitter, 
-  Youtube, 
+  Camera, 
+  Share2, 
+  Play, 
   Mail, 
   MapPin, 
   Phone, 
@@ -27,7 +27,7 @@ export default function Footer() {
               Curating the world's most exceptional automotive masterpieces for the most discerning collectors since 1998.
             </p>
             <div className="flex gap-6">
-              {[Instagram, Twitter, Youtube, Globe].map((Icon, i) => (
+              {[Camera, Share2, Play, Globe].map((Icon, i) => (
                 <Link key={i} href="#" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-luxury-gold hover:text-luxury-gold transition-all">
                   <Icon size={18} />
                 </Link>
