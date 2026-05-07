@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { vehicles } from "@/data/vehicles";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
