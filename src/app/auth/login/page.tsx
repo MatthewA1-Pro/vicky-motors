@@ -7,12 +7,20 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Mail, Lock, ArrowRight, Globe, Command } from "lucide-react";
 
+import { useAuth } from "@/context/AuthContext";
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { loginAsDemo } = useAuth();
+
+  const handleDemoLogin = () => {
+    loginAsDemo();
+    router.push("/dashboard");
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,6 +102,15 @@ export default function LoginPage() {
               {loading ? "AUTHENTICATING..." : "SIGN IN"} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </form>
+
+          <div className="grid grid-cols-1 gap-4">
+            <button 
+              onClick={handleDemoLogin}
+              className="flex items-center justify-center gap-3 border border-luxury-gold/30 py-4 hover:bg-luxury-gold/10 transition-all text-[10px] tracking-widest uppercase font-bold text-luxury-gold"
+            >
+              Preview Dashboard (Demo Mode)
+            </button>
+          </div>
 
           <div className="relative flex items-center gap-4 py-4">
             <div className="flex-1 h-[1px] bg-white/10" />

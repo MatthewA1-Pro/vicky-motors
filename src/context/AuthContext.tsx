@@ -8,12 +8,14 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   signOut: () => Promise<void>;
+  loginAsDemo: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
   signOut: async () => {},
+  loginAsDemo: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -38,10 +40,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signOut = async () => {
     await supabase.auth.signOut();
+    setUser(null);
+  };
+
+  const loginAsDemo = () => {
+    const demoUser = {
+      id: 'demo-user-id',
+      email: 'collector@luxe.com',
+      user_metadata: {
+        full_name: 'Naruto Uzumaki',
+      },
+      aud: 'authenticated',
+      role: 'authenticated',
+    } as User;
+    setUser(demoUser);
+    setLoading(false);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signOut, loginAsDemo }}>
       {children}
     </AuthContext.Provider>
   );
