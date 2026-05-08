@@ -18,7 +18,12 @@ export default function FeaturedInventory() {
 
   useEffect(() => {
     if (user) {
-      fetchWishlist();
+      if (user.id === 'demo-user-id') {
+        const stored = localStorage.getItem('demo-wishlist');
+        if (stored) setWishlistIds(JSON.parse(stored));
+      } else {
+        fetchWishlist();
+      }
     }
   }, [user]);
 
@@ -40,13 +45,16 @@ export default function FeaturedInventory() {
     }
 
     if (user.id === 'demo-user-id') {
+      let newIds;
       if (wishlistIds.includes(carId)) {
-        setWishlistIds(prev => prev.filter(id => id !== carId));
+        newIds = wishlistIds.filter(id => id !== carId);
         toast.success("Removed from wishlist (Demo Mode)");
       } else {
-        setWishlistIds(prev => [...prev, carId]);
+        newIds = [...wishlistIds, carId];
         toast.success("Added to your wishlist (Demo Mode)");
       }
+      setWishlistIds(newIds);
+      localStorage.setItem('demo-wishlist', JSON.stringify(newIds));
       return;
     }
 

@@ -39,11 +39,14 @@ export default function BuyerDashboard() {
 
   const fetchData = async () => {
     if (user?.id === 'demo-user-id') {
-      // Mock data for demo user
+      const stored = localStorage.getItem('demo-wishlist');
+      const wlIds = stored ? JSON.parse(stored) : [];
+      const wlVehicles = vehicles.filter(v => wlIds.includes(v.id));
+      
       setInquiries([
         { id: 'demo-1', interest: 'General Inquiry', status: 'Pending', created_at: new Date().toISOString(), vehicles: vehicles[0] }
       ]);
-      setWishlist([vehicles[1], vehicles[2]]);
+      setWishlist(wlVehicles);
       return;
     }
 
