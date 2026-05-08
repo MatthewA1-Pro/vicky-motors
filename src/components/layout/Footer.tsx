@@ -91,8 +91,8 @@ export default function Footer() {
               <div className="space-y-4">
                 <p className="text-[9px] tracking-widest uppercase text-luxury-gold font-bold">Direct Inquiries</p>
                 <div className="space-y-2">
-                  <Link href="tel:+18005550199" className="block text-sm hover:text-luxury-gold transition-colors">+1 (800) VICC-AUTO</Link>
-                  <Link href="mailto:concierge@viccautos.com" className="block text-sm hover:text-luxury-gold transition-colors">concierge@viccautos.com</Link>
+                  <Link href="tel:+2347025731925" className="block text-sm hover:text-luxury-gold transition-colors">+234 702 573 1925</Link>
+                  <Link href="mailto:olamilekanjohn@gmail.com" className="block text-sm hover:text-luxury-gold transition-colors">olamilekanjohn@gmail.com</Link>
                   <a href="https://wa.me/2347025731925?text=Hello%2C%20I%20would%20like%20to%20make%20a%20general%20inquiry." target="_blank" rel="noreferrer" className="block text-sm hover:text-luxury-gold transition-all text-[#25D366] flex items-center gap-2 mt-2 group">
                     <FaWhatsapp size={16} className="group-hover:scale-110 transition-transform" /> Chat on WhatsApp
                   </a>

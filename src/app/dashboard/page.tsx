@@ -18,13 +18,24 @@ import { FaWhatsapp } from "react-icons/fa6";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { vehicles } from "@/data/vehicles";
+import toast from "react-hot-toast";
 
 export default function BuyerDashboard() {
-  const { user, loading, signOut } = useAuth();
+  const { user, loading, signOut, refreshUser } = useAuth();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("overview");
   const [inquiries, setInquiries] = useState<any[]>([]);
   const [wishlist, setWishlist] = useState<any[]>([]);
+  
+  // Profile state
+  const [profileName, setProfileName] = useState("");
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setProfileName(user.user_metadata?.full_name || "");
+    }
+  }, [user]);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -82,6 +93,27 @@ export default function BuyerDashboard() {
   const handleSignOut = async () => {
     await signOut();
     router.push("/");
+  };
+
+  const handleUpdateProfile = async () => {
+    if (!user) return;
+    if (user.id === 'demo-user-id') {
+      toast.success("Demo profile updated successfully (local simulation).");
+      return;
+    }
+
+    setIsUpdating(true);
+    const { error } = await supabase.auth.updateUser({
+      data: { full_name: profileName }
+    });
+
+    if (error) {
+      toast.error(error.message);
+    } else {
+      await refreshUser();
+      toast.success("Profile updated successfully.");
+    }
+    setIsUpdating(false);
   };
 
   return (
@@ -298,11 +330,22 @@ export default function BuyerDashboard() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                         <div className="space-y-2">
                           <label className="text-[9px] tracking-widest uppercase text-white/40">Full Name</label>
-                          <input type="text" readOnly value={user.user_metadata?.full_name} className="w-full bg-white/5 border border-white/10 p-4 text-xs font-bold outline-none" />
+                          <input 
+                            type="text" 
+                            value={profileName} 
+                            onChange={(e) => setProfileName(e.target.value)}
+                            className="w-full bg-white/5 border border-white/10 p-4 text-xs font-bold outline-none focus:border-luxury-gold transition-colors" 
+                          />
                         </div>
                         <div className="space-y-2">
                           <label className="text-[9px] tracking-widest uppercase text-white/40">Email</label>
-                          <input type="text" readOnly value={user.email} className="w-full bg-white/5 border border-white/10 p-4 text-xs font-bold outline-none" />
+                          <input 
+                            type="text" 
+                            readOnly 
+                            value={user.email} 
+                            className="w-full bg-white/10 border border-white/10 p-4 text-xs font-bold outline-none cursor-not-allowed opacity-60" 
+                          />
+                          <p className="text-[8px] text-white/20 mt-1 italic uppercase tracking-tighter">Email cannot be changed directly</p>
                         </div>
                       </div>
                     </div>
@@ -310,12 +353,18 @@ export default function BuyerDashboard() {
                       <h4 className="text-[10px] tracking-[0.4em] uppercase text-luxury-gold font-bold">Preferences</h4>
                       <div className="flex items-center justify-between p-4 bg-white/5 border border-white/10">
                         <span className="text-[10px] tracking-widest uppercase">Exclusive Newsletter</span>
-                        <div className="w-10 h-5 bg-luxury-gold rounded-full relative">
+                        <div className="w-10 h-5 bg-luxury-gold rounded-full relative cursor-pointer">
                           <div className="absolute right-1 top-1 w-3 h-3 bg-white rounded-full" />
                         </div>
                       </div>
                     </div>
-                    <button className="gold-button w-full py-4 text-[10px]">Update Profile</button>
+                    <button 
+                      onClick={handleUpdateProfile}
+                      disabled={isUpdating}
+                      className="gold-button w-full py-4 text-[10px] disabled:opacity-50"
+                    >
+                      {isUpdating ? "Processing..." : "Update Profile"}
+                    </button>
                   </div>
                 )}
               </motion.div>

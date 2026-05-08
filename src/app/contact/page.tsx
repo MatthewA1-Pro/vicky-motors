@@ -122,28 +122,28 @@ export default function ContactPage() {
             {/* Branches */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
               <div className="space-y-4 md:space-y-6 p-6 md:p-10 bg-luxury-charcoal/30 border border-white/5">
-                <h3 className="text-lg md:text-xl font-serif text-luxury-gold">New York Showroom</h3>
+                <h3 className="text-lg md:text-xl font-serif text-luxury-gold">Main Headquarters</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
                     <MapPin size={20} className="text-white/30 shrink-0" />
-                    <p className="text-xs md:text-sm text-white/60 leading-relaxed">725 5th Ave, New York, NY 10022</p>
+                    <p className="text-xs md:text-sm text-white/60 leading-relaxed">Lagos, Nigeria</p>
                   </div>
                   <div className="flex items-center gap-4">
                     <Phone size={20} className="text-white/30 shrink-0" />
-                    <p className="text-xs md:text-sm text-white/60">+1 (800) VICC-NY</p>
+                    <p className="text-xs md:text-sm text-white/60">+234 702 573 1925</p>
                   </div>
                 </div>
               </div>
               <div className="space-y-4 md:space-y-6 p-6 md:p-10 bg-luxury-charcoal/30 border border-white/5">
-                <h3 className="text-lg md:text-xl font-serif text-luxury-gold">London Boutique</h3>
+                <h3 className="text-lg md:text-xl font-serif text-luxury-gold">Lagos Showroom</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
                     <MapPin size={20} className="text-white/30 shrink-0" />
-                    <p className="text-xs md:text-sm text-white/60">15 Berkeley Square, London W1J 6AS</p>
+                    <p className="text-xs md:text-sm text-white/60 leading-relaxed">Victoria Island, Lagos</p>
                   </div>
                   <div className="flex items-center gap-4">
                     <Phone size={20} className="text-white/30 shrink-0" />
-                    <p className="text-xs md:text-sm text-white/60">+44 20 7946 0000</p>
+                    <p className="text-xs md:text-sm text-white/60">+234 702 573 1925</p>
                   </div>
                 </div>
               </div>
