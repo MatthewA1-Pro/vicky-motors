@@ -54,10 +54,21 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.gold-gradient {
-  background: linear-gradient(135deg, #C5A059 0%, #F5E6AB 50%, #C5A059 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+@layer utilities {
+  .gold-gradient {
+    background: linear-gradient(to right, #D4AF37, #F9E29C, #D4AF37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-ticker {
+    animation: ticker 30s linear infinite;
+  }
 }
 
 .gold-button {

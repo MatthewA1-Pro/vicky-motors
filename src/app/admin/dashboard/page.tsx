@@ -84,7 +84,32 @@ export default function AdminDashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 min-h-[600px]">
+      <main className="flex-1 min-h-[600px] space-y-8">
+        {/* Notification Bar */}
+        <div className="bg-luxury-gold/5 border border-luxury-gold/20 rounded-xl p-4 flex items-center justify-between overflow-hidden relative group">
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <MessageSquare size={18} className="text-luxury-gold" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+            </div>
+            <div className="flex items-center gap-6 animate-ticker whitespace-nowrap">
+              {[...inquiries, ...inquiries].map((iq, idx) => (
+                <div key={`${iq.id}-${idx}`} className="text-[10px] tracking-widest uppercase font-bold flex items-center gap-3 border-r border-white/10 pr-6">
+                  <span className="text-luxury-gold">{iq.name}</span>
+                  <span className="text-white/40">Inquired about</span>
+                  <span className="text-white">{iq.vehicle}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <button onClick={() => setActiveTab('inquiries')} className="text-[9px] tracking-widest uppercase font-bold text-luxury-gold hover:text-white transition-colors flex items-center gap-2 whitespace-nowrap bg-black/40 px-4 py-2 rounded-lg border border-white/5 z-10">
+            View All <ArrowUpRight size={12} />
+          </button>
+          
+          {/* Shine effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+        </div>
+
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
