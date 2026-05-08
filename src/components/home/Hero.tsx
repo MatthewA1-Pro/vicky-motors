@@ -8,12 +8,26 @@ export default function Hero() {
   return (
     <section className="relative h-[100dvh] flex items-center justify-center overflow-hidden bg-luxury-obsidian pt-24 md:pt-32">
       {/* Background Media */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <img 
           src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2500&auto=format&fit=crop" 
           alt="Hero Background" 
-          className="w-full h-full object-cover opacity-40 grayscale"
+          className="w-full h-full object-cover opacity-30 grayscale"
         />
+        
+        {/* Rotating Lamborghini */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] md:w-[120%] lg:w-[100%] aspect-square flex items-center justify-center opacity-[0.07] pointer-events-none select-none"
+        >
+          <img 
+            src="/lamborghini-rotate.png" 
+            alt="Rotating Lamborghini"
+            className="w-full h-auto max-w-7xl"
+          />
+        </motion.div>
+
         <div className="absolute inset-0 bg-gradient-to-b from-luxury-obsidian/80 via-transparent to-luxury-obsidian" />
         <div className="absolute inset-0 bg-gradient-to-r from-luxury-obsidian via-transparent to-luxury-obsidian/40" />
       </div>
