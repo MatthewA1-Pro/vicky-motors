@@ -8,7 +8,7 @@ import {
   FaXTwitter, 
   FaLinkedinIn, 
   FaTiktok, 
-  FaTelegramPlane,
+  FaTelegram,
   FaWhatsapp 
 } from "react-icons/fa6";
 import { MessageSquare } from "lucide-react";
@@ -22,7 +22,7 @@ export default function Footer() {
     { Icon: FaYoutube, href: "https://youtube.com/viccautos", label: "YouTube", color: "hover:text-[#FF0000] hover:border-[#FF0000]/50" },
     { Icon: FaTiktok, href: "https://tiktok.com/@viccautos", label: "TikTok", color: "hover:text-[#00F2EA] hover:border-[#00F2EA]/50" },
     { Icon: FaLinkedinIn, href: "https://linkedin.com/company/viccautos", label: "LinkedIn", color: "hover:text-[#0A66C2] hover:border-[#0A66C2]/50" },
-    { Icon: FaTelegramPlane, href: "https://t.me/viccautos", label: "Telegram", color: "hover:text-[#26A5E4] hover:border-[#26A5E4]/50" },
+    { Icon: FaTelegram, href: "https://t.me/viccautos", label: "Telegram", color: "hover:text-[#26A5E4] hover:border-[#26A5E4]/50" },
   ];
 
   return (
