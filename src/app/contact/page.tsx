@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Clock, MessageSquare, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
 import toast from "react-hot-toast";
 
 export default function ContactPage() {
@@ -105,8 +106,8 @@ export default function ContactPage() {
                 <button type="submit" disabled={loading} className="bg-white text-black w-full py-5 text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase hover:bg-luxury-gold transition-all flex items-center justify-center gap-4 group disabled:opacity-50">
                   {loading ? 'Sending...' : 'Send Inquiry'} <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </button>
-                <button type="button" onClick={openWhatsApp} className="w-full bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20 py-5 text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase hover:bg-[#25D366] hover:text-white transition-all flex items-center justify-center gap-4 group">
-                  Chat on WhatsApp <MessageSquare size={16} className="group-hover:scale-110 transition-transform" />
+                <button type="button" onClick={openWhatsApp} className="w-full bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20 py-5 text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase hover:bg-[#25D366] hover:text-white transition-all duration-500 flex items-center justify-center gap-4 group">
+                  Chat on WhatsApp <FaWhatsapp size={20} className="group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
                 </button>
               </div>
             </form>

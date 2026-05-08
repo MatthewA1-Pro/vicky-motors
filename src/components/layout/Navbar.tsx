@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import { ArrowLeft, Menu, X, LayoutDashboard, LogOut, MessageCircle } from "lucide-react";
+import { ArrowLeft, Menu, X, LayoutDashboard, LogOut } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 
@@ -241,9 +242,9 @@ export default function Navbar() {
                 target="_blank" 
                 rel="noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-auto pt-8 flex items-center justify-center gap-3 bg-[#25D366]/10 text-[#25D366] py-4 rounded-xl font-medium tracking-wide hover:bg-[#25D366]/20 transition-colors border border-[#25D366]/20"
+                className="mt-auto pt-8 flex items-center justify-center gap-3 bg-[#25D366]/10 text-[#25D366] py-4 rounded-xl font-medium tracking-wide hover:bg-[#25D366] hover:text-white transition-all duration-300 border border-[#25D366]/20 group"
               >
-                <MessageCircle size={20} />
+                <FaWhatsapp size={20} className="group-hover:scale-110 transition-transform" />
                 WhatsApp Us
               </a>
             </nav>
@@ -253,4 +254,3 @@ export default function Navbar() {
     </>
   );
 }
-

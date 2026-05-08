@@ -2,18 +2,29 @@
 
 import Link from "next/link";
 import { 
-  Camera, 
-  Share2, 
-  Play, 
-  Mail, 
-  MapPin, 
-  Phone, 
-  ArrowUpRight,
-  Globe,
-  MessageSquare
-} from "lucide-react";
+  FaInstagram, 
+  FaFacebookF, 
+  FaYoutube, 
+  FaXTwitter, 
+  FaLinkedinIn, 
+  FaTiktok, 
+  FaTelegramPlane,
+  FaWhatsapp 
+} from "react-icons/fa6";
+import { MessageSquare } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function Footer() {
+  const socialLinks = [
+    { Icon: FaInstagram, href: "https://instagram.com/viccautos", label: "Instagram", color: "hover:text-[#E4405F] hover:border-[#E4405F]/50" },
+    { Icon: FaFacebookF, href: "https://facebook.com/viccautos", label: "Facebook", color: "hover:text-[#1877F2] hover:border-[#1877F2]/50" },
+    { Icon: FaXTwitter, href: "https://x.com/viccautos", label: "X (Twitter)", color: "hover:text-white hover:border-white/50" },
+    { Icon: FaYoutube, href: "https://youtube.com/viccautos", label: "YouTube", color: "hover:text-[#FF0000] hover:border-[#FF0000]/50" },
+    { Icon: FaTiktok, href: "https://tiktok.com/@viccautos", label: "TikTok", color: "hover:text-[#00F2EA] hover:border-[#00F2EA]/50" },
+    { Icon: FaLinkedinIn, href: "https://linkedin.com/company/viccautos", label: "LinkedIn", color: "hover:text-[#0A66C2] hover:border-[#0A66C2]/50" },
+    { Icon: FaTelegramPlane, href: "https://t.me/viccautos", label: "Telegram", color: "hover:text-[#26A5E4] hover:border-[#26A5E4]/50" },
+  ];
+
   return (
     <footer className="bg-luxury-obsidian border-t border-white/5 pt-32 pb-16">
       <div className="container mx-auto px-8">
@@ -27,15 +38,24 @@ export default function Footer() {
             <p className="text-white/40 text-lg leading-relaxed max-w-md font-light">
               Curating the world's most exceptional automotive masterpieces for the most discerning collectors since 1998.
             </p>
-            <div className="flex gap-6">
-              {[
-                { Icon: Camera, href: "https://instagram.com/viccautos" },
-                { Icon: Share2, href: "https://facebook.com/viccautos" },
-                { Icon: Play, href: "https://youtube.com/viccautos" },
-                { Icon: Globe, href: "https://viccautos.com" }
-              ].map(({ Icon, href }, i) => (
-                <a key={i} href={href} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-luxury-gold hover:text-luxury-gold transition-all">
-                  <Icon size={18} />
+            <div className="flex flex-wrap gap-4">
+              {socialLinks.map(({ Icon, href, label, color }, i) => (
+                <a 
+                  key={i} 
+                  href={href} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  aria-label={label}
+                  className={cn(
+                    "w-12 h-12 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 group relative overflow-hidden",
+                    color
+                  )}
+                >
+                  <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                  <Icon size={18} className="relative z-10 group-hover:scale-110 transition-transform duration-500" />
+                  
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-20 blur-md bg-current transition-opacity duration-500" />
                 </a>
               ))}
             </div>
@@ -73,8 +93,8 @@ export default function Footer() {
                 <div className="space-y-2">
                   <Link href="tel:+18005550199" className="block text-sm hover:text-luxury-gold transition-colors">+1 (800) VICC-AUTO</Link>
                   <Link href="mailto:concierge@viccautos.com" className="block text-sm hover:text-luxury-gold transition-colors">concierge@viccautos.com</Link>
-                  <a href="https://wa.me/2347025731925?text=Hello%2C%20I%20would%20like%20to%20make%20a%20general%20inquiry." target="_blank" rel="noreferrer" className="block text-sm hover:text-luxury-gold transition-colors text-[#25D366] flex items-center gap-2 mt-2">
-                    <MessageSquare size={14} /> Chat on WhatsApp
+                  <a href="https://wa.me/2347025731925?text=Hello%2C%20I%20would%20like%20to%20make%20a%20general%20inquiry." target="_blank" rel="noreferrer" className="block text-sm hover:text-luxury-gold transition-all text-[#25D366] flex items-center gap-2 mt-2 group">
+                    <FaWhatsapp size={16} className="group-hover:scale-110 transition-transform" /> Chat on WhatsApp
                   </a>
                 </div>
               </div>

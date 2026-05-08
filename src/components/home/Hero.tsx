@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Play, MessageSquare } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
 
 export default function Hero() {
   return (
@@ -74,10 +75,11 @@ export default function Hero() {
               rel="noreferrer"
               className="flex items-center justify-center gap-4 group"
             >
-              <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-[#25D366] transition-colors text-white group-hover:text-[#25D366]">
-                <MessageSquare size={16} className="md:w-[20px] md:h-[20px]" />
+              <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-[#25D366] group-hover:bg-[#25D366]/10 transition-all duration-500 text-white group-hover:text-[#25D366] relative overflow-hidden">
+                <FaWhatsapp size={20} className="md:w-6 md:h-6 relative z-10 group-hover:scale-110 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-current opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500" />
               </div>
-              <span className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase font-bold text-white/60 group-hover:text-white">Chat on WhatsApp</span>
+              <span className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase font-bold text-white/60 group-hover:text-white transition-colors">Chat on WhatsApp</span>
             </a>
           </motion.div>
         </div>

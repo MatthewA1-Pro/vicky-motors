@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Car
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { vehicles } from "@/data/vehicles";
@@ -235,9 +236,9 @@ export default function BuyerDashboard() {
                             href={`https://wa.me/2347025731925?text=${encodeURIComponent(`Hello, I'm following up on my inquiry for the ${iq.vehicles?.brand} ${iq.vehicles?.model}.`)}`} 
                             target="_blank" 
                             rel="noreferrer" 
-                            className="gold-button px-6 py-3 text-[9px] w-full md:w-auto mt-4 md:mt-0 inline-block text-center flex items-center justify-center gap-2"
+                            className="bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20 px-6 py-3 text-[9px] w-full md:w-auto mt-4 md:mt-0 inline-block text-center flex items-center justify-center gap-2 hover:bg-[#25D366] hover:text-white transition-all duration-300 group tracking-widest uppercase font-bold"
                           >
-                            <MessageSquare size={14} /> Contact Concierge
+                            <FaWhatsapp size={14} className="group-hover:scale-110 transition-transform" /> Contact Concierge
                           </a>
                         </div>
                       </div>
