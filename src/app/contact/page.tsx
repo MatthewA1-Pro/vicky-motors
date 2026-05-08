@@ -16,7 +16,7 @@ export default function ContactPage() {
           >
             <div>
               <span className="text-luxury-gold tracking-[0.4em] uppercase text-xs font-bold mb-6 block">Get in Touch</span>
-              <h1 className="text-6xl font-serif mb-8">Start Your <br /> <span className="italic">Journey</span></h1>
+              <h1 className="text-4xl md:text-6xl font-serif mb-6 md:mb-8">Start Your <br /> <span className="italic">Journey</span></h1>
               <p className="text-white/40 text-lg font-light max-w-lg">
                 Whether you're looking to acquire a masterpiece or require specialist servicing, our team of experts is ready to assist you.
               </p>
@@ -74,30 +74,30 @@ export default function ContactPage() {
             className="space-y-16"
           >
             {/* Branches */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div className="space-y-6 p-10 bg-luxury-charcoal/30 border border-white/5">
-                <h3 className="text-xl font-serif text-luxury-gold">New York Showroom</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+              <div className="space-y-4 md:space-y-6 p-6 md:p-10 bg-luxury-charcoal/30 border border-white/5">
+                <h3 className="text-lg md:text-xl font-serif text-luxury-gold">New York Showroom</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
                     <MapPin size={20} className="text-white/30 shrink-0" />
-                    <p className="text-sm text-white/60 leading-relaxed">725 5th Ave, New York, NY 10022</p>
+                    <p className="text-xs md:text-sm text-white/60 leading-relaxed">725 5th Ave, New York, NY 10022</p>
                   </div>
                   <div className="flex items-center gap-4">
                     <Phone size={20} className="text-white/30 shrink-0" />
-                    <p className="text-sm text-white/60">+1 (800) LUXE-NY</p>
+                    <p className="text-xs md:text-sm text-white/60">+1 (800) VICC-NY</p>
                   </div>
                 </div>
               </div>
-              <div className="space-y-6 p-10 bg-luxury-charcoal/30 border border-white/5">
-                <h3 className="text-xl font-serif text-luxury-gold">London Boutique</h3>
+              <div className="space-y-4 md:space-y-6 p-6 md:p-10 bg-luxury-charcoal/30 border border-white/5">
+                <h3 className="text-lg md:text-xl font-serif text-luxury-gold">London Boutique</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
                     <MapPin size={20} className="text-white/30 shrink-0" />
-                    <p className="text-sm text-white/60">15 Berkeley Square, London W1J 6AS</p>
+                    <p className="text-xs md:text-sm text-white/60">15 Berkeley Square, London W1J 6AS</p>
                   </div>
                   <div className="flex items-center gap-4">
                     <Phone size={20} className="text-white/30 shrink-0" />
-                    <p className="text-sm text-white/60">+44 20 7946 0000</p>
+                    <p className="text-xs md:text-sm text-white/60">+44 20 7946 0000</p>
                   </div>
                 </div>
               </div>
@@ -109,11 +109,11 @@ export default function ContactPage() {
                 <Clock size={24} className="text-luxury-gold" />
                 <h3 className="text-2xl font-serif uppercase tracking-widest">Business Hours</h3>
               </div>
-              <div className="grid grid-cols-2 gap-x-20 gap-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 md:gap-x-20 gap-y-4 md:gap-y-6">
                 {['Monday - Friday', 'Saturday', 'Sunday'].map((day, i) => (
                   <div key={i} className="flex justify-between border-b border-white/5 pb-2">
-                    <span className="text-xs tracking-widest text-white/40 uppercase font-bold">{day}</span>
-                    <span className="text-xs tracking-widest uppercase">{day === 'Sunday' ? 'By Appointment' : '09:00 - 20:00'}</span>
+                    <span className="text-[10px] md:text-xs tracking-widest text-white/40 uppercase font-bold">{day}</span>
+                    <span className="text-[10px] md:text-xs tracking-widest uppercase">{day === 'Sunday' ? 'By Appointment' : '09:00 - 20:00'}</span>
                   </div>
                 ))}
               </div>

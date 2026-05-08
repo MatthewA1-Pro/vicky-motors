@@ -22,7 +22,7 @@ const faqs = [
   {
     category: "Ownership",
     questions: [
-      { q: "Do you offer maintenance programs?", a: "Our LUXE Care program provides comprehensive maintenance packages, including factory-trained technicians and genuine manufacturer parts." },
+      { q: "Do you offer maintenance programs?", a: "Our VICC AUTOS Care program provides comprehensive maintenance packages, including factory-trained technicians and genuine manufacturer parts." },
       { q: "Can I trade in my current vehicle?", a: "We accept high-end trade-ins and consignments. Our specialists will provide a professional valuation based on current global market trends." }
     ]
   }

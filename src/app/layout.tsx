@@ -19,7 +19,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "LUXE Auto Gallery | Premium Luxury Car Dealership",
+  title: "VICC AUTOS | Premium Luxury Car Dealership",
   description: "Experience the pinnacle of luxury automotive excellence. Discover an exclusive collection of the world's most prestigious vehicles including Rolls-Royce, Lamborghini, and Porsche.",
   keywords: ["luxury cars", "prestige automobiles", "exotic cars", "hypercars", "dealership", "Rolls-Royce", "Lamborghini", "Porsche"],
 };

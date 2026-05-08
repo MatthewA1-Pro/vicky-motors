@@ -1,4 +1,4 @@
--- LUXE Auto Gallery Database Schema
+-- VICC AUTOS Database Schema
 
 -- 1. Create Vehicles Table
 CREATE TABLE IF NOT EXISTS vehicles (

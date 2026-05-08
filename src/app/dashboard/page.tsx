@@ -72,7 +72,7 @@ export default function BuyerDashboard() {
 
   return (
     <div className="pt-32 pb-20 min-h-screen bg-luxury-black">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Sidebar */}
           <aside className="lg:w-80 space-y-8">
@@ -122,14 +122,14 @@ export default function BuyerDashboard() {
 
           {/* Main Content */}
           <main className="flex-1 space-y-12">
-            <header>
-              <h1 className="text-4xl font-serif mb-4">
+            <header className="mb-8 md:mb-12">
+              <h1 className="text-3xl md:text-4xl font-serif mb-4">
                 {activeTab === 'overview' && <>Welcome back, <span className="italic gold-gradient">{user.user_metadata?.full_name?.split(' ')[0] || 'Collector'}</span></>}
                 {activeTab === 'wishlist' && <>My <span className="italic gold-gradient">Wishlist</span></>}
                 {activeTab === 'inquiries' && <>My <span className="italic gold-gradient">Inquiries</span></>}
                 {activeTab === 'settings' && <>Account <span className="italic gold-gradient">Settings</span></>}
               </h1>
-              <p className="text-white/40 text-sm tracking-widest uppercase">
+              <p className="text-white/40 text-xs md:text-sm tracking-widest uppercase leading-relaxed">
                 {activeTab === 'overview' && "Managing your private acquisition journey"}
                 {activeTab === 'wishlist' && "Your curated selection of potential masterpieces"}
                 {activeTab === 'inquiries' && "Track your ongoing conversations with our concierge"}
@@ -172,18 +172,18 @@ export default function BuyerDashboard() {
                       </div>
                       <div className="space-y-4">
                         {inquiries.slice(0, 3).map((iq) => (
-                          <div key={iq.id} className="glass p-6 flex flex-col md:flex-row items-center justify-between gap-6 border-l-4 border-luxury-gold">
-                            <div className="flex items-center gap-6">
-                              <div className="w-20 h-12 bg-zinc-900 overflow-hidden">
+                          <div key={iq.id} className="glass p-5 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-l-4 border-luxury-gold">
+                            <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto">
+                              <div className="w-20 h-12 bg-zinc-900 overflow-hidden shrink-0">
                                 <img src={iq.vehicles?.images[0]} alt="" className="w-full h-full object-cover" />
                               </div>
-                              <div>
-                                <p className="text-sm font-medium tracking-wide">{iq.interest}</p>
+                              <div className="flex-1">
+                                <p className="text-sm font-medium tracking-wide truncate max-w-[200px] md:max-w-none">{iq.interest}</p>
                                 <p className="text-[10px] tracking-widest uppercase text-white/40 mt-1">Status: {iq.status}</p>
                               </div>
                             </div>
-                            <div className="flex items-center gap-8">
-                              <div className="text-right">
+                            <div className="flex items-center justify-between md:justify-end gap-6 md:gap-8 w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-white/5 md:border-transparent mt-2 md:mt-0">
+                              <div className="text-left md:text-right">
                                 <p className="text-[10px] tracking-widest uppercase text-white/30">Submitted</p>
                                 <p className="text-xs font-medium mt-1">{new Date(iq.created_at).toLocaleDateString()}</p>
                               </div>
@@ -199,9 +199,9 @@ export default function BuyerDashboard() {
                 {activeTab === 'inquiries' && (
                   <div className="space-y-6">
                     {inquiries.length > 0 ? inquiries.map((iq) => (
-                      <div key={iq.id} className="glass p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-                         <div className="flex items-center gap-8">
-                          <div className="w-32 h-20 bg-zinc-900 overflow-hidden">
+                      <div key={iq.id} className="glass p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                         <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 w-full md:w-auto">
+                          <div className="w-full sm:w-32 h-32 sm:h-20 bg-zinc-900 overflow-hidden shrink-0">
                             <img src={iq.vehicles?.images[0]} alt="" className="w-full h-full object-cover" />
                           </div>
                           <div>
@@ -209,16 +209,16 @@ export default function BuyerDashboard() {
                             <p className="text-[10px] tracking-widest uppercase text-luxury-gold mt-2">{iq.interest}</p>
                           </div>
                         </div>
-                        <div className="flex items-center gap-12">
-                          <div className="text-center">
+                        <div className="flex flex-wrap md:flex-nowrap items-center justify-between md:justify-end gap-6 md:gap-12 w-full md:w-auto pt-6 md:pt-0 border-t md:border-t-0 border-white/5">
+                          <div className="text-left md:text-center w-1/2 md:w-auto">
                             <p className="text-[9px] tracking-widest uppercase text-white/30">Status</p>
                             <p className="text-xs font-bold mt-2 uppercase">{iq.status}</p>
                           </div>
-                          <div className="text-center">
+                          <div className="text-right md:text-center w-1/2 md:w-auto">
                             <p className="text-[9px] tracking-widest uppercase text-white/30">Last Update</p>
                             <p className="text-xs font-bold mt-2">{new Date(iq.created_at).toLocaleDateString()}</p>
                           </div>
-                          <button className="gold-button px-6 py-3 text-[9px]">Contact Concierge</button>
+                          <button className="gold-button px-6 py-3 text-[9px] w-full md:w-auto mt-4 md:mt-0">Contact Concierge</button>
                         </div>
                       </div>
                     )) : (
@@ -274,7 +274,7 @@ export default function BuyerDashboard() {
                   <div className="glass p-12 max-w-2xl space-y-10">
                     <div className="space-y-6">
                       <h4 className="text-[10px] tracking-[0.4em] uppercase text-luxury-gold font-bold">Personal Information</h4>
-                      <div className="grid grid-cols-2 gap-8">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                         <div className="space-y-2">
                           <label className="text-[9px] tracking-widest uppercase text-white/40">Full Name</label>
                           <input type="text" readOnly value={user.user_metadata?.full_name} className="w-full bg-white/5 border border-white/10 p-4 text-xs font-bold outline-none" />

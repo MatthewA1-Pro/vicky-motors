@@ -18,8 +18,8 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-luxury-obsidian via-transparent to-luxury-obsidian/40" />
       </div>
 
-      <div className="container mx-auto px-8 relative z-10">
-        <div className="max-w-5xl">
+      <div className="container mx-auto px-4 md:px-8 relative z-10">
+        <div className="max-w-5xl mt-20 md:mt-0">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -34,7 +34,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="text-[12vw] md:text-[8vw] lg:text-[7vw] leading-[1] font-serif mb-12"
+            className="text-[15vw] md:text-[8vw] lg:text-[7vw] leading-[1] font-serif mb-8 md:mb-12"
           >
             Defining the <br />
             <span className="italic gold-gradient">Exceptional</span>
@@ -44,21 +44,21 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="flex flex-col md:flex-row items-start md:items-center gap-10"
+            className="flex flex-col md:flex-row items-stretch md:items-center gap-6 md:gap-10 w-full sm:w-auto"
           >
             <Link 
               href="/inventory" 
-              className="gold-button px-12 py-6 text-xs group flex items-center gap-4"
+              className="gold-button px-8 md:px-12 py-5 md:py-6 text-[10px] md:text-xs group flex items-center justify-center gap-4 text-center"
             >
               Explore Collection
               <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
             </Link>
 
-            <button className="flex items-center gap-4 group">
-              <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-luxury-gold transition-colors">
-                <Play size={20} fill="currentColor" />
+            <button className="flex items-center justify-center gap-4 group">
+              <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-luxury-gold transition-colors">
+                <Play size={16} className="md:w-[20px] md:h-[20px]" fill="currentColor" />
               </div>
-              <span className="text-[10px] tracking-[0.3em] uppercase font-bold text-white/60 group-hover:text-white">Watch Film</span>
+              <span className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase font-bold text-white/60 group-hover:text-white">Watch Film</span>
             </button>
           </motion.div>
         </div>
@@ -69,9 +69,9 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6"
+        className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 md:gap-6"
       >
-        <span className="text-[8px] tracking-[0.5em] uppercase text-white/20 vertical-text">Scroll</span>
+        <span className="text-[7px] md:text-[8px] tracking-[0.5em] uppercase text-white/20 vertical-text">Scroll</span>
         <div className="w-[1px] h-20 bg-gradient-to-b from-luxury-gold to-transparent" />
       </motion.div>
 

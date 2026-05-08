@@ -7,8 +7,8 @@ export default function AboutPage() {
   return (
     <div className="pt-32 bg-luxury-black min-h-screen">
       {/* Hero */}
-      <section className="container mx-auto px-6 mb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <section className="container mx-auto px-4 md:px-6 mb-16 md:mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
             <motion.span
               initial={{ opacity: 0, x: -20 }}
@@ -20,7 +20,7 @@ export default function AboutPage() {
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-6xl md:text-8xl font-serif mb-10 leading-tight"
+              className="text-5xl md:text-6xl lg:text-8xl font-serif mb-8 md:mb-10 leading-tight"
             >
               Legacy of <br /> <span className="italic">Excellence</span>
             </motion.h1>
@@ -28,9 +28,9 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-white/60 text-xl font-light leading-relaxed mb-12"
+              className="text-white/60 text-lg md:text-xl font-light leading-relaxed mb-8 md:mb-12"
             >
-              Founded in 1999, LUXE Auto Gallery has been the premier destination for the world's most discerning automotive enthusiasts. We specialize in curating an elite collection of prestige vehicles that represent the absolute pinnacle of engineering and design.
+              Founded in 1999, VICC AUTOS has been the premier destination for the world's most discerning automotive enthusiasts. We specialize in curating an elite collection of prestige vehicles that represent the absolute pinnacle of engineering and design.
             </motion.p>
           </div>
           <div className="relative">
@@ -45,7 +45,7 @@ export default function AboutPage() {
                 className="w-full h-full object-cover"
               />
             </motion.div>
-            <div className="absolute -bottom-10 -left-10 glass p-10 space-y-2 hidden md:block">
+            <div className="absolute -bottom-10 -left-10 glass p-10 space-y-2 hidden lg:block">
               <span className="text-4xl font-serif text-luxury-gold">25+</span>
               <p className="text-[10px] tracking-[0.3em] uppercase text-white/60">Years of Luxury Expertise</p>
             </div>
@@ -54,10 +54,10 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-luxury-charcoal/30 py-32 border-y border-white/5 mb-32">
-        <div className="container mx-auto px-6">
+      <section className="bg-luxury-charcoal/30 py-16 md:py-32 border-y border-white/5 mb-16 md:mb-32">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-20">
-            <h2 className="text-4xl font-serif mb-4">The LUXE Standard</h2>
+            <h2 className="text-4xl font-serif mb-4">The VICC AUTOS Standard</h2>
             <div className="w-20 h-[1px] bg-luxury-gold mx-auto" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
@@ -91,10 +91,10 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="container mx-auto px-6 pb-32">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20">
+      <section className="container mx-auto px-4 md:px-6 pb-16 md:pb-32">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-4 md:gap-0">
           <h2 className="text-4xl md:text-6xl font-serif">The <span className="italic">Visionaries</span></h2>
-          <p className="text-white/40 uppercase tracking-widest text-xs font-bold max-w-xs text-right hidden md:block">
+          <p className="text-white/40 uppercase tracking-widest text-xs font-bold max-w-xs text-left md:text-right">
             Our team of specialists shares a deep passion for automotive art.
           </p>
         </div>

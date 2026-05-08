@@ -20,8 +20,8 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-5 space-y-12">
             <Link href="/" className="flex flex-col">
-              <span className="text-4xl font-serif tracking-[0.3em] font-black uppercase">LUXE</span>
-              <span className="text-[10px] tracking-[0.6em] text-luxury-gold uppercase -mt-1 ml-1 font-bold">Auto Gallery</span>
+              <span className="text-4xl font-serif tracking-[0.3em] font-black uppercase">VICC</span>
+              <span className="text-[10px] tracking-[0.6em] text-luxury-gold uppercase -mt-1 ml-1 font-bold">Autos</span>
             </Link>
             <p className="text-white/40 text-lg leading-relaxed max-w-md font-light">
               Curating the world's most exceptional automotive masterpieces for the most discerning collectors since 1998.
@@ -59,8 +59,8 @@ export default function Footer() {
               <div className="space-y-4">
                 <p className="text-[9px] tracking-widest uppercase text-luxury-gold font-bold">Direct Inquiries</p>
                 <div className="space-y-2">
-                  <Link href="tel:+18005550199" className="block text-sm hover:text-luxury-gold transition-colors">+1 (800) LUXE-AUTO</Link>
-                  <Link href="mailto:concierge@luxeauto.com" className="block text-sm hover:text-luxury-gold transition-colors">concierge@luxeauto.com</Link>
+                  <Link href="tel:+18005550199" className="block text-sm hover:text-luxury-gold transition-colors">+1 (800) VICC-AUTO</Link>
+                  <Link href="mailto:concierge@viccautos.com" className="block text-sm hover:text-luxury-gold transition-colors">concierge@viccautos.com</Link>
                 </div>
               </div>
             </div>
@@ -70,7 +70,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
           <p className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold">
-            &copy; 2026 Luxe Auto Gallery. All Rights Reserved.
+            &copy; 2026 VICC AUTOS. All Rights Reserved.
           </p>
           <div className="flex gap-12">
             <Link href="#" className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold hover:text-white transition-colors">Privacy Policy</Link>

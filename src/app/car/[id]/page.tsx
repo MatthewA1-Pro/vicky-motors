@@ -42,7 +42,7 @@ export default function CarDetailsPage() {
 
   return (
     <div className="pt-24 bg-luxury-black min-h-screen">
-      <div className="container mx-auto px-6 py-12">
+      <div className="container mx-auto px-4 md:px-6 py-6 md:py-12">
         {/* Breadcrumbs */}
         <div className="mb-12 flex items-center gap-4">
           <Link href="/inventory" className="flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-white/40 hover:text-white transition-colors">
@@ -52,7 +52,7 @@ export default function CarDetailsPage() {
           <span className="text-[10px] tracking-[0.3em] uppercase text-luxury-gold">{vehicle.brand} / {vehicle.model}</span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           {/* Gallery Column */}
           <div className="lg:col-span-8 space-y-6">
             <motion.div 
@@ -65,7 +65,7 @@ export default function CarDetailsPage() {
                 alt={vehicle.name} 
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
               />
-              <div className="absolute top-6 right-6 flex flex-col gap-4">
+              <div className="absolute top-4 right-4 md:top-6 md:right-6 flex flex-col gap-4">
                 <button className="w-12 h-12 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center hover:bg-luxury-gold hover:text-black transition-all">
                   <Maximize2 size={20} />
                 </button>
@@ -75,7 +75,7 @@ export default function CarDetailsPage() {
               </div>
             </motion.div>
 
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-2 md:gap-4">
               {vehicle.images.map((img, i) => (
                 <button 
                   key={i} 
@@ -89,14 +89,13 @@ export default function CarDetailsPage() {
               ))}
             </div>
 
-            {/* Description */}
-            <div className="pt-12 space-y-8">
-              <h3 className="text-3xl font-serif">A Masterpiece in Engineering</h3>
-              <p className="text-white/60 leading-relaxed text-lg font-light">
+            <div className="pt-8 md:pt-12 space-y-6 md:space-y-8">
+              <h3 className="text-2xl md:text-3xl font-serif">A Masterpiece in Engineering</h3>
+              <p className="text-white/60 leading-relaxed text-base md:text-lg font-light">
                 {vehicle.description} Each curve and contour of the {vehicle.name} has been meticulously crafted to deliver an experience that transcends mere transportation. From its state-of-the-art {vehicle.engine} to its bespoke interior, this vehicle represents the absolute pinnacle of automotive excellence.
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 pt-6 md:pt-8">
                 <div>
                   <h4 className="text-luxury-gold tracking-widest uppercase text-xs font-bold mb-6">Key Features</h4>
                   <ul className="grid grid-cols-1 gap-4">
@@ -108,7 +107,7 @@ export default function CarDetailsPage() {
                     ))}
                   </ul>
                 </div>
-                <div className="bg-luxury-charcoal/50 p-8 border border-white/5 space-y-6">
+                <div className="bg-luxury-charcoal/50 p-6 md:p-8 border border-white/5 space-y-6">
                   <div className="flex items-center gap-4">
                     <ShieldCheck size={32} className="text-luxury-gold" />
                     <div>
@@ -117,7 +116,7 @@ export default function CarDetailsPage() {
                     </div>
                   </div>
                   <p className="text-xs text-white/30 leading-relaxed">
-                    This vehicle is eligible for our exclusive LUXE Care program, including global roadside assistance and complimentary maintenance.
+                    This vehicle is eligible for our exclusive VICC AUTOS Care program, including global roadside assistance and complimentary maintenance.
                   </p>
                 </div>
               </div>
@@ -128,8 +127,8 @@ export default function CarDetailsPage() {
           <div className="lg:col-span-4 space-y-10">
             <div className="space-y-4">
               <span className="text-luxury-gold tracking-[0.4em] uppercase text-xs font-bold block">{vehicle.year} &bull; {vehicle.brand}</span>
-              <h1 className="text-5xl font-serif">{vehicle.model}</h1>
-              <p className="text-4xl font-medium tracking-tight text-white/90 pt-4">{formatPrice(vehicle.price)}</p>
+              <h1 className="text-4xl md:text-5xl font-serif">{vehicle.model}</h1>
+              <p className="text-3xl md:text-4xl font-medium tracking-tight text-white/90 pt-2 md:pt-4">{formatPrice(vehicle.price)}</p>
             </div>
 
             {/* Stats Grid */}
@@ -164,24 +163,23 @@ export default function CarDetailsPage() {
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="space-y-4">
-              <button className="w-full bg-white text-black py-5 text-sm font-bold tracking-[0.3em] uppercase hover:bg-luxury-gold transition-colors">
+            <div className="space-y-3 md:space-y-4">
+              <button className="w-full bg-white text-black py-4 md:py-5 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase hover:bg-luxury-gold transition-colors">
                 Enquire Now
               </button>
-              <button className="w-full border border-white/20 py-5 text-sm font-bold tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3">
+              <button className="w-full border border-white/20 py-4 md:py-5 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3">
                 Schedule Test Drive
               </button>
               <a 
                 href="#"
-                className="w-full bg-[#25D366]/10 text-[#25D366] py-5 text-sm font-bold tracking-[0.3em] uppercase hover:bg-[#25D366] hover:text-white transition-all flex items-center justify-center gap-3 border border-[#25D366]/20"
+                className="w-full bg-[#25D366]/10 text-[#25D366] py-4 md:py-5 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase hover:bg-[#25D366] hover:text-white transition-all flex items-center justify-center gap-2 md:gap-3 border border-[#25D366]/20"
               >
                 <MessageCircle size={20} /> WhatsApp Inquiry
               </a>
             </div>
 
             {/* Finance Card */}
-            <div className="glass p-8 space-y-6">
+            <div className="glass p-6 md:p-8 space-y-4 md:space-y-6">
               <h4 className="text-lg font-serif">Financing Estimate</h4>
               <div className="space-y-4">
                 <div className="flex justify-between text-xs tracking-widest text-white/40 uppercase">

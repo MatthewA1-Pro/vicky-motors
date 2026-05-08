@@ -8,14 +8,14 @@ const testimonials = [
   {
     name: "Sir Richard Hamilton",
     role: "Art Collector",
-    content: "The level of professionalism and discretion at LUXE is unparalleled. They didn't just find me a car; they secured a piece of automotive history that perfectly complements my collection.",
+    content: "The level of professionalism and discretion at VICC AUTOS is unparalleled. They didn't just find me a car; they secured a piece of automotive history that perfectly complements my collection.",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
     vehicle: "Rolls-Royce Phantom"
   },
   {
     name: "Dr. Elena Vance",
     role: "Tech Entrepreneur",
-    content: "Acquiring my Revuelto through LUXE was a flawless experience. Their deep technical knowledge and transparent communication made the complex process of international sourcing feel effortless.",
+    content: "Acquiring my Revuelto through VICC AUTOS was a flawless experience. Their deep technical knowledge and transparent communication made the complex process of international sourcing feel effortless.",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop",
     vehicle: "Lamborghini Revuelto"
   },

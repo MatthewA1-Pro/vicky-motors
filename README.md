@@ -1,4 +1,4 @@
-# LUXE Auto Gallery
+# VICC AUTOS
 
 A world-class luxury car dealership platform built for the most discerning automotive collectors and enthusiasts.
 

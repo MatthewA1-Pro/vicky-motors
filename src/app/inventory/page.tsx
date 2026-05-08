@@ -64,7 +64,7 @@ export default function InventoryPage() {
     <div className="pt-40 pb-32 min-h-screen bg-luxury-obsidian">
       <div className="container mx-auto px-8">
         {/* Header */}
-        <div className="mb-24 flex flex-col md:flex-row justify-between items-end gap-12">
+        <div className="mb-12 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-12">
           <div className="max-w-2xl">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -77,7 +77,7 @@ export default function InventoryPage() {
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-7xl md:text-9xl font-serif"
+              className="text-5xl md:text-7xl lg:text-9xl font-serif"
             >
               Virtual <span className="italic">Showroom</span>
             </motion.h1>
@@ -88,7 +88,7 @@ export default function InventoryPage() {
         </div>
 
         {/* Filter Bar */}
-        <div className="flex flex-col lg:flex-row gap-8 items-center justify-between mb-20 border-y border-white/5 py-10">
+        <div className="flex flex-col lg:flex-row gap-6 md:gap-8 items-start lg:items-center justify-between mb-12 md:mb-20 border-y border-white/5 py-6 md:py-10">
           <div className="relative w-full lg:w-96">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-white/20" size={18} />
             <input 
@@ -100,8 +100,8 @@ export default function InventoryPage() {
             />
           </div>
 
-          <div className="flex flex-wrap items-center gap-10 w-full lg:w-auto">
-            <nav className="flex gap-10">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-10 w-full lg:w-auto">
+            <nav className="flex gap-6 md:gap-10 overflow-x-auto pb-2 w-full max-w-full lg:pb-0 whitespace-nowrap">
               {categories.map((cat) => (
                 <button
                   key={cat}
@@ -171,12 +171,12 @@ export default function InventoryPage() {
 
                 <div className="py-10 flex flex-col justify-between flex-1 md:px-6">
                   <div>
-                    <div className="flex justify-between items-start mb-6">
-                      <h3 className="text-3xl font-serif tracking-widest group-hover:gold-gradient transition-all">{vehicle.name}</h3>
+                    <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-6 gap-4">
+                      <h3 className="text-2xl md:text-3xl font-serif tracking-widest group-hover:gold-gradient transition-all">{vehicle.name}</h3>
                       <span className="text-xl font-bold tracking-tighter text-luxury-gold">{formatPrice(vehicle.price)}</span>
                     </div>
                     
-                    <div className="grid grid-cols-3 gap-8 border-y border-white/5 py-8 mt-4">
+                    <div className="grid grid-cols-3 gap-4 md:gap-8 border-y border-white/5 py-6 md:py-8 mt-4">
                       <div>
                         <span className="text-[8px] tracking-[0.4em] uppercase text-white/30 block mb-2">Power</span>
                         <span className="text-xs font-bold">{vehicle.hp} HP</span>

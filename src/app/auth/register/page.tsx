@@ -45,7 +45,7 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left: Content */}
-      <div className="flex-1 flex flex-col justify-center px-10 md:px-20 lg:px-40 bg-luxury-black">
+      <div className="flex-1 flex flex-col justify-center px-6 py-24 md:py-0 md:px-20 lg:px-40 bg-luxury-black">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -53,9 +53,9 @@ export default function RegisterPage() {
         >
           <div className="space-y-4">
             <Link href="/" className="flex flex-col mb-12">
-              <span className="text-3xl font-serif tracking-[0.2em] font-bold uppercase">LUXE</span>
+              <span className="text-3xl font-serif tracking-[0.2em] font-bold uppercase">VICC</span>
               <span className="text-[10px] tracking-[0.5em] text-luxury-gold font-sans uppercase -mt-1 ml-1">
-                Auto Gallery
+                Autos
               </span>
             </Link>
             <h1 className="text-4xl font-serif">Join the Inner Circle</h1>

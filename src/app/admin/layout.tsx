@@ -23,7 +23,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className="w-72 border-r border-white/5 bg-luxury-charcoal/50 flex flex-col">
         <div className="p-8">
           <Link href="/" className="flex flex-col">
-            <span className="text-2xl font-serif tracking-[0.2em] font-bold uppercase">LUXE</span>
+            <span className="text-2xl font-serif tracking-[0.2em] font-bold uppercase">VICC AUTOS</span>
             <span className="text-[9px] tracking-[0.4em] text-luxury-gold font-sans uppercase -mt-1 ml-1">
               Admin Portal
             </span>
