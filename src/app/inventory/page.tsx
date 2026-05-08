@@ -39,6 +39,17 @@ export default function InventoryPage() {
       return;
     }
 
+    if (user.id === 'demo-user-id') {
+      if (wishlistIds.includes(carId)) {
+        setWishlistIds(prev => prev.filter(id => id !== carId));
+        toast.success("Removed from wishlist (Demo Mode)");
+      } else {
+        setWishlistIds(prev => [...prev, carId]);
+        toast.success("Added to your wishlist (Demo Mode)");
+      }
+      return;
+    }
+
     if (wishlistIds.includes(carId)) {
       await supabase
         .from('wishlist')

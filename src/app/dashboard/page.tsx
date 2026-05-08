@@ -38,7 +38,16 @@ export default function BuyerDashboard() {
   }, [user, activeTab]);
 
   const fetchData = async () => {
-    // Fetch inquiries
+    if (user?.id === 'demo-user-id') {
+      // Mock data for demo user
+      setInquiries([
+        { id: 'demo-1', interest: 'General Inquiry', status: 'Pending', created_at: new Date().toISOString(), vehicles: vehicles[0] }
+      ]);
+      setWishlist([vehicles[1], vehicles[2]]);
+      return;
+    }
+
+    // Fetch real inquiries
     const { data: iqData } = await supabase
       .from('inquiries')
       .select('*, vehicles(*)')
