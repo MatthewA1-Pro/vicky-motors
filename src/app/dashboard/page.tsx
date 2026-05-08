@@ -33,29 +33,30 @@ export default function BuyerDashboard() {
 
   useEffect(() => {
     if (user) {
-      const fetchData = async () => {
-        // Fetch inquiries
-        const { data: iqData } = await supabase
-          .from('inquiries')
-          .select('*, vehicles(*)')
-          .eq('email', user.email);
-        if (iqData) setInquiries(iqData);
-
-        // Fetch real wishlist
-        const { data: wlData } = await supabase
-          .from('wishlist')
-          .select('car_id')
-          .eq('user_id', user.id);
-        
-        if (wlData) {
-          const wlIds = wlData.map(i => i.car_id);
-          const wlVehicles = vehicles.filter(v => wlIds.includes(v.id));
-          setWishlist(wlVehicles);
-        }
-      };
       fetchData();
     }
-  }, [user]);
+  }, [user, activeTab]);
+
+  const fetchData = async () => {
+    // Fetch inquiries
+    const { data: iqData } = await supabase
+      .from('inquiries')
+      .select('*, vehicles(*)')
+      .eq('email', user?.email);
+    if (iqData) setInquiries(iqData);
+
+    // Fetch real wishlist
+    const { data: wlData } = await supabase
+      .from('wishlist')
+      .select('car_id')
+      .eq('user_id', user?.id);
+    
+    if (wlData) {
+      const wlIds = wlData.map(i => i.car_id);
+      const wlVehicles = vehicles.filter(v => wlIds.includes(v.id));
+      setWishlist(wlVehicles);
+    }
+  };
 
   if (loading || !user) {
     return (
