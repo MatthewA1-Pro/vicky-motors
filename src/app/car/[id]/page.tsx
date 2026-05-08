@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { vehicles } from "@/data/vehicles";
 import { formatPrice } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -20,12 +20,54 @@ import {
   CheckCircle2
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/context/AuthContext";
+import toast from "react-hot-toast";
 
 export default function CarDetailsPage() {
   const params = useParams();
+  const router = useRouter();
+  const { user } = useAuth();
   const vehicle = vehicles.find(v => v.id === params.id);
   const [activeImage, setActiveImage] = useState(0);
+  const [isWishlisted, setIsWishlisted] = useState(false);
+
+  useEffect(() => {
+    if (user && vehicle) {
+      checkWishlist();
+    }
+  }, [user, vehicle]);
+
+  const checkWishlist = async () => {
+    const { data } = await supabase
+      .from('wishlist')
+      .select('id')
+      .eq('user_id', user?.id)
+      .eq('car_id', vehicle?.id);
+    if (data && data.length > 0) setIsWishlisted(true);
+  };
+
+  const toggleWishlist = async () => {
+    if (!user) {
+      router.push('/auth/login');
+      return;
+    }
+
+    if (isWishlisted) {
+      await supabase.from('wishlist').delete().eq('user_id', user.id).eq('car_id', vehicle?.id);
+      setIsWishlisted(false);
+      toast.success("Removed from wishlist");
+    } else {
+      await supabase.from('wishlist').insert({ user_id: user.id, car_id: vehicle?.id });
+      setIsWishlisted(true);
+      toast.success("Added to wishlist");
+    }
+  };
+
+  const handleAction = (action: string) => {
+    toast.success(`${action} request received. Our concierge will contact you.`);
+  };
 
   if (!vehicle) {
     return (
@@ -69,8 +111,13 @@ export default function CarDetailsPage() {
                 <button className="w-12 h-12 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center hover:bg-luxury-gold hover:text-black transition-all">
                   <Maximize2 size={20} />
                 </button>
-                <button className="w-12 h-12 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center hover:bg-red-500 transition-all">
-                  <Heart size={20} />
+                <button 
+                  onClick={toggleWishlist}
+                  className={`w-12 h-12 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center transition-all ${
+                    isWishlisted ? "bg-luxury-gold text-black border-luxury-gold" : "hover:bg-luxury-gold hover:text-black"
+                  }`}
+                >
+                  <Heart size={20} fill={isWishlisted ? "currentColor" : "none"} />
                 </button>
               </div>
             </motion.div>
@@ -164,12 +211,18 @@ export default function CarDetailsPage() {
             </div>
 
             <div className="space-y-3 md:space-y-4">
-              <button className="w-full bg-white text-black py-4 md:py-5 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase hover:bg-luxury-gold transition-colors">
+              <button 
+                onClick={() => handleAction("Enquiry")}
+                className="w-full bg-white text-black py-4 md:py-5 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase hover:bg-luxury-gold transition-all"
+              >
                 Enquire Now
               </button>
-              <button className="w-full border border-white/20 py-4 md:py-5 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3">
+              <Link 
+                href="/contact"
+                className="w-full border border-white/20 py-4 md:py-5 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3"
+              >
                 Schedule Test Drive
-              </button>
+              </Link>
               <a 
                 href={`https://wa.me/2347025731925?text=${encodeURIComponent(`Hello, I'm interested in the ${vehicle.year} ${vehicle.brand} ${vehicle.model} listed at ${formatPrice(vehicle.price)}.`)}`}
                 target="_blank"
@@ -198,7 +251,10 @@ export default function CarDetailsPage() {
                   <span className="text-white">60 Months</span>
                 </div>
               </div>
-              <button className="w-full text-[10px] tracking-[0.3em] uppercase text-luxury-gold font-bold hover:text-white transition-colors pt-4">
+              <button 
+                onClick={() => handleAction("Finance Quote")}
+                className="w-full text-[10px] tracking-[0.3em] uppercase text-luxury-gold font-bold hover:text-white transition-colors pt-4"
+              >
                 Get Personalized Quote
               </button>
             </div>

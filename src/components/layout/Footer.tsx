@@ -28,10 +28,15 @@ export default function Footer() {
               Curating the world's most exceptional automotive masterpieces for the most discerning collectors since 1998.
             </p>
             <div className="flex gap-6">
-              {[Camera, Share2, Play, Globe].map((Icon, i) => (
-                <Link key={i} href="#" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-luxury-gold hover:text-luxury-gold transition-all">
+              {[
+                { Icon: Camera, href: "https://instagram.com/viccautos" },
+                { Icon: Share2, href: "https://facebook.com/viccautos" },
+                { Icon: Play, href: "https://youtube.com/viccautos" },
+                { Icon: Globe, href: "https://viccautos.com" }
+              ].map(({ Icon, href }, i) => (
+                <a key={i} href={href} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-luxury-gold hover:text-luxury-gold transition-all">
                   <Icon size={18} />
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -83,9 +88,9 @@ export default function Footer() {
             &copy; 2026 VICC AUTOS. All Rights Reserved.
           </p>
           <div className="flex gap-12">
-            <Link href="#" className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="#" className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold hover:text-white transition-colors">Terms of Service</Link>
-            <Link href="#" className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold hover:text-white transition-colors">Cookies</Link>
+            <Link href="/privacy" className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/cookies" className="text-[9px] tracking-[0.4em] uppercase text-white/20 font-bold hover:text-white transition-colors">Cookies</Link>
           </div>
         </div>
       </div>
