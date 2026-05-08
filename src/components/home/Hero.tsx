@@ -6,7 +6,7 @@ import { ArrowRight, Play } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-luxury-obsidian">
+    <section className="relative h-[100dvh] flex items-center justify-center overflow-hidden bg-luxury-obsidian pt-24 md:pt-32">
       {/* Background Media */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -19,7 +19,7 @@ export default function Hero() {
       </div>
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="max-w-5xl mt-20 md:mt-0">
+        <div className="max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

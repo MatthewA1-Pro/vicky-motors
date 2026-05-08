@@ -110,9 +110,14 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
-              <Link href="/auth/login" className="hidden lg:block border border-white/10 px-8 py-3 text-[10px] tracking-[0.3em] uppercase font-bold hover:bg-white hover:text-black transition-all">
-                Membership
-              </Link>
+              <div className="hidden lg:flex items-center space-x-6">
+                <Link href="/auth/login" className="text-[10px] tracking-[0.3em] uppercase font-bold text-white/60 hover:text-white transition-colors">
+                  Sign In
+                </Link>
+                <Link href="/auth/register" className="border border-white/10 px-8 py-3 text-[10px] tracking-[0.3em] uppercase font-bold hover:bg-white hover:text-black transition-all">
+                  Create Account
+                </Link>
+              </div>
             )}
             <button onClick={() => setIsMobileMenuOpen(true)} className="lg:hidden text-white/80 hover:text-luxury-gold transition-colors p-2">
               <Menu size={28} />
