@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, MessageSquare } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -54,12 +54,17 @@ export default function Hero() {
               <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
             </Link>
 
-            <button className="flex items-center justify-center gap-4 group">
-              <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-luxury-gold transition-colors">
-                <Play size={16} className="md:w-[20px] md:h-[20px]" fill="currentColor" />
+            <a 
+              href="https://wa.me/2347025731925?text=Hello%2C%20I%20am%20interested%20in%20acquiring%20a%20luxury%20vehicle."
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center gap-4 group"
+            >
+              <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-[#25D366] transition-colors text-white group-hover:text-[#25D366]">
+                <MessageSquare size={16} className="md:w-[20px] md:h-[20px]" />
               </div>
-              <span className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase font-bold text-white/60 group-hover:text-white">Watch Film</span>
-            </button>
+              <span className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase font-bold text-white/60 group-hover:text-white">Chat on WhatsApp</span>
+            </a>
           </motion.div>
         </div>
       </div>

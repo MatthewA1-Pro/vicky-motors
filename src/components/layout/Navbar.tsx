@@ -237,7 +237,7 @@ export default function Navbar() {
               )}
 
               <a
-                href="https://wa.me/1234567890" 
+                href="https://wa.me/2347025731925?text=Hello%2C%20I%27m%20interested%20in%20acquiring%20a%20vehicle%20from%20VICC%20AUTOS." 
                 target="_blank" 
                 rel="noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}

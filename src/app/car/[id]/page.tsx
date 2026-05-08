@@ -171,7 +171,9 @@ export default function CarDetailsPage() {
                 Schedule Test Drive
               </button>
               <a 
-                href="#"
+                href={`https://wa.me/2347025731925?text=${encodeURIComponent(`Hello, I'm interested in the ${vehicle.year} ${vehicle.brand} ${vehicle.model} listed at ${formatPrice(vehicle.price)}.`)}`}
+                target="_blank"
+                rel="noreferrer"
                 className="w-full bg-[#25D366]/10 text-[#25D366] py-4 md:py-5 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase hover:bg-[#25D366] hover:text-white transition-all flex items-center justify-center gap-2 md:gap-3 border border-[#25D366]/20"
               >
                 <MessageCircle size={20} /> WhatsApp Inquiry

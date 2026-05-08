@@ -218,7 +218,14 @@ export default function BuyerDashboard() {
                             <p className="text-[9px] tracking-widest uppercase text-white/30">Last Update</p>
                             <p className="text-xs font-bold mt-2">{new Date(iq.created_at).toLocaleDateString()}</p>
                           </div>
-                          <button className="gold-button px-6 py-3 text-[9px] w-full md:w-auto mt-4 md:mt-0">Contact Concierge</button>
+                          <a 
+                            href={`https://wa.me/2347025731925?text=${encodeURIComponent(`Hello, I'm following up on my inquiry for the ${iq.vehicles?.brand} ${iq.vehicles?.model}.`)}`} 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            className="gold-button px-6 py-3 text-[9px] w-full md:w-auto mt-4 md:mt-0 inline-block text-center flex items-center justify-center gap-2"
+                          >
+                            <MessageSquare size={14} /> Contact Concierge
+                          </a>
                         </div>
                       </div>
                     )) : (

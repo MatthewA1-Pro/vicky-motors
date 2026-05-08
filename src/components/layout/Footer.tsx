@@ -9,7 +9,8 @@ import {
   MapPin, 
   Phone, 
   ArrowUpRight,
-  Globe
+  Globe,
+  MessageSquare
 } from "lucide-react";
 
 export default function Footer() {
@@ -39,8 +40,14 @@ export default function Footer() {
           <div className="lg:col-span-2 space-y-10">
             <h4 className="text-[10px] tracking-[0.5em] uppercase text-white/20 font-bold">Navigation</h4>
             <nav className="flex flex-col space-y-4">
-              {["Showroom", "Heritage", "Experience", "Journal", "Concierge"].map((link) => (
-                <Link key={link} href="#" className="text-sm font-medium hover:text-luxury-gold transition-colors">{link}</Link>
+              {[
+                { name: "Showroom", path: "/inventory" },
+                { name: "Heritage", path: "/about" },
+                { name: "Experience", path: "/services" },
+                { name: "Journal", path: "/blog" },
+                { name: "Concierge", path: "/contact" }
+              ].map((link) => (
+                <Link key={link.name} href={link.path} className="text-sm font-medium hover:text-luxury-gold transition-colors">{link.name}</Link>
               ))}
             </nav>
           </div>
@@ -61,6 +68,9 @@ export default function Footer() {
                 <div className="space-y-2">
                   <Link href="tel:+18005550199" className="block text-sm hover:text-luxury-gold transition-colors">+1 (800) VICC-AUTO</Link>
                   <Link href="mailto:concierge@viccautos.com" className="block text-sm hover:text-luxury-gold transition-colors">concierge@viccautos.com</Link>
+                  <a href="https://wa.me/2347025731925?text=Hello%2C%20I%20would%20like%20to%20make%20a%20general%20inquiry." target="_blank" rel="noreferrer" className="block text-sm hover:text-luxury-gold transition-colors text-[#25D366] flex items-center gap-2 mt-2">
+                    <MessageSquare size={14} /> Chat on WhatsApp
+                  </a>
                 </div>
               </div>
             </div>

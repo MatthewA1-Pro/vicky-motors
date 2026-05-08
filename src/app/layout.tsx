@@ -4,7 +4,9 @@ import { MessageSquare } from "lucide-react";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
 import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,14 +40,27 @@ export default function RootLayout({
           <Footer />
           
           {/* Floating WhatsApp Button */}
-          <a 
-            href="https://wa.me/1234567890" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="fixed bottom-10 right-10 z-40 bg-[#25D366] p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center"
-          >
-            <MessageSquare className="w-6 h-6 text-white" />
-          </a>
+          <FloatingWhatsApp />
+          <Toaster 
+            position="top-center"
+            toastOptions={{
+              style: {
+                background: '#18181b',
+                color: '#fff',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '0',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                fontSize: '10px',
+              },
+              success: {
+                iconTheme: {
+                  primary: '#cfb53b',
+                  secondary: '#18181b',
+                },
+              },
+            }}
+          />
         </AuthProvider>
       </body>
     </html>

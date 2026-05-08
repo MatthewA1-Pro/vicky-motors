@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { vehicles } from "@/data/vehicles";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
-import { Search, Grid, List, ChevronRight, Heart } from "lucide-react";
+import { Search, Grid, List, ChevronRight, Heart, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/context/AuthContext";
@@ -199,6 +199,14 @@ export default function InventoryPage() {
                     >
                       View Dossier <ChevronRight size={14} className="group-hover/link:translate-x-2 transition-transform" />
                     </Link>
+                    <a 
+                      href={`https://wa.me/2347025731925?text=${encodeURIComponent(`Hello, I'm interested in the ${vehicle.year} ${vehicle.brand} ${vehicle.model} from the VICC AUTOS inventory.`)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-[10px] tracking-[0.4em] uppercase font-bold text-[#25D366] hover:text-[#128C7E] transition-colors flex items-center gap-2"
+                    >
+                      <MessageCircle size={14} /> Inquire
+                    </a>
                   </div>
                 </div>
               </motion.div>

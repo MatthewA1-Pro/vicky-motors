@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { vehicles } from "@/data/vehicles";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
-import { ArrowUpRight, Heart } from "lucide-react";
+import { ArrowUpRight, Heart, MessageCircle } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
@@ -141,9 +141,17 @@ export default function FeaturedInventory() {
                     <span className="text-[10px] tracking-[0.4em] uppercase text-luxury-gold font-bold">{vehicle.category}</span>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="text-right flex flex-col items-end">
                   <p className="text-[10px] tracking-[0.5em] uppercase text-white/20 mb-2">Investment</p>
-                  <span className="text-2xl font-bold tracking-tighter">{formatPrice(vehicle.price)}</span>
+                  <span className="text-2xl font-bold tracking-tighter mb-3">{formatPrice(vehicle.price)}</span>
+                  <a 
+                    href={`https://wa.me/2347025731925?text=${encodeURIComponent(`Hello, I'm interested in the ${vehicle.year} ${vehicle.brand} ${vehicle.model} from the VICC AUTOS showcase.`)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 text-[9px] tracking-[0.3em] uppercase font-bold text-[#25D366] hover:text-white transition-colors"
+                  >
+                    <MessageCircle size={12} /> Inquire
+                  </a>
                 </div>
               </div>
             </motion.div>

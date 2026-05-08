@@ -1,9 +1,39 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, MessageSquare, Send } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    interest: "GENERAL ENQUIRY",
+    message: ""
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+    
+    setLoading(true);
+    // Simulate API call
+    setTimeout(() => {
+      toast.success("Inquiry sent successfully. Our concierge will contact you shortly.");
+      setFormData({ name: "", email: "", interest: "GENERAL ENQUIRY", message: "" });
+      setLoading(false);
+    }, 1500);
+  };
+
+  const openWhatsApp = () => {
+    const text = encodeURIComponent(`Hello VICC AUTOS, my name is ${formData.name || 'a customer'}. I have a ${formData.interest} inquiry: ${formData.message}`);
+    window.open(`https://wa.me/2347025731925?text=${text}`, '_blank');
+  };
   return (
     <div className="pt-32 bg-luxury-black min-h-screen">
       <div className="container mx-auto px-6 py-12">
@@ -22,12 +52,14 @@ export default function ContactPage() {
               </p>
             </div>
 
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-bold ml-1">Full Name</label>
                   <input 
                     type="text" 
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
                     placeholder="ENTER YOUR NAME"
                     className="w-full bg-white/5 border border-white/10 px-6 py-4 text-xs tracking-[0.2em] focus:outline-none focus:border-luxury-gold transition-colors"
                   />
@@ -36,6 +68,8 @@ export default function ContactPage() {
                   <label className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-bold ml-1">Email Address</label>
                   <input 
                     type="email" 
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
                     placeholder="YOUR@EMAIL.COM"
                     className="w-full bg-white/5 border border-white/10 px-6 py-4 text-xs tracking-[0.2em] focus:outline-none focus:border-luxury-gold transition-colors"
                   />
@@ -44,7 +78,11 @@ export default function ContactPage() {
               
               <div className="space-y-2">
                 <label className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-bold ml-1">Interested In</label>
-                <select className="w-full bg-white/5 border border-white/10 px-6 py-4 text-xs tracking-[0.2em] focus:outline-none focus:border-luxury-gold transition-colors appearance-none">
+                <select 
+                  value={formData.interest}
+                  onChange={(e) => setFormData({...formData, interest: e.target.value})}
+                  className="w-full bg-white/5 border border-white/10 px-6 py-4 text-xs tracking-[0.2em] focus:outline-none focus:border-luxury-gold transition-colors appearance-none"
+                >
                   <option className="bg-luxury-black">SALES INQUIRY</option>
                   <option className="bg-luxury-black">SERVICE APPOINTMENT</option>
                   <option className="bg-luxury-black">VEHICLE CONSIGNMENT</option>
@@ -56,14 +94,21 @@ export default function ContactPage() {
                 <label className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-bold ml-1">Message</label>
                 <textarea 
                   rows={6}
+                  value={formData.message}
+                  onChange={(e) => setFormData({...formData, message: e.target.value})}
                   placeholder="HOW CAN WE ASSIST YOU?"
                   className="w-full bg-white/5 border border-white/10 px-6 py-4 text-xs tracking-[0.2em] focus:outline-none focus:border-luxury-gold transition-colors resize-none"
                 ></textarea>
               </div>
 
-              <button className="bg-white text-black w-full py-5 text-sm font-bold tracking-[0.4em] uppercase hover:bg-luxury-gold transition-all flex items-center justify-center gap-4 group">
-                Send Inquiry <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button type="submit" disabled={loading} className="bg-white text-black w-full py-5 text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase hover:bg-luxury-gold transition-all flex items-center justify-center gap-4 group disabled:opacity-50">
+                  {loading ? 'Sending...' : 'Send Inquiry'} <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </button>
+                <button type="button" onClick={openWhatsApp} className="w-full bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20 py-5 text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase hover:bg-[#25D366] hover:text-white transition-all flex items-center justify-center gap-4 group">
+                  Chat on WhatsApp <MessageSquare size={16} className="group-hover:scale-110 transition-transform" />
+                </button>
+              </div>
             </form>
           </motion.div>
 
