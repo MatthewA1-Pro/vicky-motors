@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function InventoryPage() {
   const [search, setSearch] = useState("");
@@ -45,11 +46,13 @@ export default function InventoryPage() {
         .eq('user_id', user.id)
         .eq('car_id', carId);
       setWishlistIds(prev => prev.filter(id => id !== carId));
+      toast.success("Removed from wishlist");
     } else {
       await supabase
         .from('wishlist')
         .insert({ user_id: user.id, car_id: carId });
       setWishlistIds(prev => [...prev, carId]);
+      toast.success("Added to your wishlist");
     }
   };
 
