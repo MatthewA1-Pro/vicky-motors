@@ -28,14 +28,30 @@ const mobileNavLinks = [
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      setIsScrolled(currentScrollY > 20);
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+      
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -54,7 +70,8 @@ export default function Navbar() {
   return (
     <>
       <header className={cn(
-        "fixed top-0 left-0 w-full z-[100] transition-all duration-700",
+        "fixed top-0 left-0 w-full z-[100] transition-all duration-500",
+        isHidden ? "-translate-y-full" : "translate-y-0",
         isScrolled ? "bg-luxury-obsidian/90 backdrop-blur-xl py-4 border-b border-white/5" : "bg-transparent py-4 md:py-8"
       )}>
         <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
