@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowRight, Play } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 
+import Logo from "../layout/Logo";
+
 export default function Hero() {
   return (
     <section className="relative h-[100dvh] flex items-center justify-center overflow-hidden bg-luxury-obsidian pt-24 md:pt-32">
@@ -41,7 +43,7 @@ export default function Hero() {
         
         {/* Logo Watermark */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl opacity-[0.03] pointer-events-none select-none">
-          <img src="/logo.png" alt="" className="w-full h-auto object-contain" />
+          <Logo className="w-full h-auto" />
         </div>
       </div>
 

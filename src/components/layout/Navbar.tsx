@@ -8,6 +8,7 @@ import { ArrowLeft, Menu, X, LayoutDashboard, LogOut } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
+import Logo from "./Logo";
 
 const desktopNavLinks = [
   { name: "Showroom", href: "/inventory" },
@@ -92,14 +93,7 @@ export default function Navbar() {
 
             {/* Logo */}
             <Link href="/" className="group flex items-center">
-              <div className="relative h-12 md:h-16 w-32 md:w-48 transition-transform duration-500 group-hover:scale-105">
-                <img 
-                  src="/logo.png" 
-                  alt="VICC Autos Official Logo" 
-                  className="w-full h-full object-contain brightness-110"
-                />
-                <div className="absolute inset-0 bg-luxury-gold blur-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
-              </div>
+              <Logo className="h-16 md:h-24 w-auto transition-transform duration-500 group-hover:scale-105" />
             </Link>
           </div>
 
@@ -175,11 +169,7 @@ export default function Navbar() {
           >
             <div className="flex justify-between items-center p-6 border-b border-white/10">
               <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center">
-                <img 
-                  src="/logo.png" 
-                  alt="VICC Autos Logo" 
-                  className="h-10 md:h-12 w-auto object-contain brightness-110"
-                />
+                <Logo className="h-12 w-auto" />
               </Link>
               <button 
                 onClick={() => setIsMobileMenuOpen(false)}

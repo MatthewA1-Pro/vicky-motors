@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa6";
 import { MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Logo from "./Logo";
 
 export default function Footer() {
   const socialLinks = [
@@ -32,14 +33,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-5 space-y-12">
             <Link href="/" className="group flex items-center">
-              <div className="relative h-24 w-64 transition-transform duration-500 group-hover:scale-105">
-                <img 
-                  src="/logo.png" 
-                  alt="VICC Autos Official Logo" 
-                  className="w-full h-full object-contain brightness-125"
-                />
-                <div className="absolute inset-0 bg-luxury-gold blur-[60px] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
-              </div>
+              <Logo className="h-32 md:h-40 w-auto transition-transform duration-500 group-hover:scale-105" />
             </Link>
             <p className="text-white/40 text-lg leading-relaxed max-w-md font-light">
               Curating the world's most exceptional automotive masterpieces for the most discerning collectors since 1998.
