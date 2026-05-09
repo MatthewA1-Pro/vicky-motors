@@ -18,6 +18,7 @@ import { FaWhatsapp } from "react-icons/fa6";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { vehicles } from "@/data/vehicles";
+import { recentBuyers } from "@/data/buyers";
 import toast from "react-hot-toast";
 
 export default function BuyerDashboard() {
@@ -244,42 +245,88 @@ export default function BuyerDashboard() {
                 )}
 
                 {activeTab === 'inquiries' && (
-                  <div className="space-y-6">
-                    {inquiries.length > 0 ? inquiries.map((iq) => (
-                      <div key={iq.id} className="glass p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                         <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 w-full md:w-auto">
-                          <div className="w-full sm:w-32 h-32 sm:h-20 bg-zinc-900 overflow-hidden shrink-0">
-                            <img src={iq.vehicles?.images[0]} alt="" className="w-full h-full object-cover" />
+                  <div className="space-y-12">
+                    {/* User Inquiries */}
+                    <div className="space-y-6">
+                      <div className="flex items-center gap-4">
+                        <h3 className="text-xl font-serif tracking-widest uppercase">My Active Inquiries</h3>
+                        <div className="h-[1px] flex-1 bg-white/5" />
+                      </div>
+                      {inquiries.length > 0 ? inquiries.map((iq) => (
+                        <div key={iq.id} className="glass p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-l-4 border-luxury-gold">
+                           <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 w-full md:w-auto">
+                            <div className="w-full sm:w-32 h-32 sm:h-20 bg-zinc-900 overflow-hidden shrink-0">
+                              <img src={iq.vehicles?.images[0]} alt="" className="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                              <h4 className="text-xl font-serif">{iq.vehicles?.name}</h4>
+                              <p className="text-[10px] tracking-widest uppercase text-luxury-gold mt-2">{iq.interest}</p>
+                            </div>
                           </div>
-                          <div>
-                            <h4 className="text-xl font-serif">{iq.vehicles?.name}</h4>
-                            <p className="text-[10px] tracking-widest uppercase text-luxury-gold mt-2">{iq.interest}</p>
+                          <div className="flex flex-wrap md:flex-nowrap items-center justify-between md:justify-end gap-6 md:gap-12 w-full md:w-auto pt-6 md:pt-0 border-t md:border-t-0 border-white/5">
+                            <div className="text-left md:text-center w-1/2 md:w-auto">
+                              <p className="text-[9px] tracking-widest uppercase text-white/30">Status</p>
+                              <p className="text-xs font-bold mt-2 uppercase">{iq.status}</p>
+                            </div>
+                            <div className="text-right md:text-center w-1/2 md:w-auto">
+                              <p className="text-[9px] tracking-widest uppercase text-white/30">Last Update</p>
+                              <p className="text-xs font-bold mt-2">{new Date(iq.created_at).toLocaleDateString()}</p>
+                            </div>
+                            <a 
+                              href={`https://wa.me/2347025731925?text=${encodeURIComponent(`Hello, I'm following up on my inquiry for the ${iq.vehicles?.brand} ${iq.vehicles?.model}.`)}`} 
+                              target="_blank" 
+                              rel="noreferrer" 
+                              className="bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20 px-6 py-3 text-[9px] w-full md:w-auto mt-4 md:mt-0 inline-block text-center flex items-center justify-center gap-2 hover:bg-[#25D366] hover:text-white transition-all duration-300 group tracking-widest uppercase font-bold"
+                            >
+                              <FaWhatsapp size={14} className="group-hover:scale-110 transition-transform" /> Contact Concierge
+                            </a>
                           </div>
                         </div>
-                        <div className="flex flex-wrap md:flex-nowrap items-center justify-between md:justify-end gap-6 md:gap-12 w-full md:w-auto pt-6 md:pt-0 border-t md:border-t-0 border-white/5">
-                          <div className="text-left md:text-center w-1/2 md:w-auto">
-                            <p className="text-[9px] tracking-widest uppercase text-white/30">Status</p>
-                            <p className="text-xs font-bold mt-2 uppercase">{iq.status}</p>
-                          </div>
-                          <div className="text-right md:text-center w-1/2 md:w-auto">
-                            <p className="text-[9px] tracking-widest uppercase text-white/30">Last Update</p>
-                            <p className="text-xs font-bold mt-2">{new Date(iq.created_at).toLocaleDateString()}</p>
-                          </div>
-                          <a 
-                            href={`https://wa.me/2347025731925?text=${encodeURIComponent(`Hello, I'm following up on my inquiry for the ${iq.vehicles?.brand} ${iq.vehicles?.model}.`)}`} 
-                            target="_blank" 
-                            rel="noreferrer" 
-                            className="bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20 px-6 py-3 text-[9px] w-full md:w-auto mt-4 md:mt-0 inline-block text-center flex items-center justify-center gap-2 hover:bg-[#25D366] hover:text-white transition-all duration-300 group tracking-widest uppercase font-bold"
-                          >
-                            <FaWhatsapp size={14} className="group-hover:scale-110 transition-transform" /> Contact Concierge
-                          </a>
+                      )) : (
+                        <div className="glass p-12 text-center">
+                          <p className="text-white/30 uppercase tracking-[0.3em] text-sm">No active inquiries</p>
                         </div>
+                      )}
+                    </div>
+
+                    {/* Global Sales History Section */}
+                    <div className="space-y-8">
+                      <div className="flex items-center gap-6">
+                        <h3 className="text-xl font-serif tracking-widest uppercase text-luxury-gold">Verified Acquisitions</h3>
+                        <div className="h-[1px] flex-1 bg-gradient-to-r from-luxury-gold/30 to-transparent" />
                       </div>
-                    )) : (
-                      <div className="glass p-32 text-center">
-                        <p className="text-white/30 uppercase tracking-[0.3em] text-sm">No active inquiries</p>
+                      
+                      <div className="grid grid-cols-1 gap-4">
+                        {recentBuyers.map((buyer) => (
+                          <div key={buyer.id} className="glass p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:bg-white/[0.02] transition-colors border-l-2 border-white/10 group">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 w-full md:w-auto">
+                              <div className="w-10 h-10 rounded-full bg-luxury-gold/10 flex items-center justify-center border border-luxury-gold/20 text-luxury-gold group-hover:bg-luxury-gold group-hover:text-black transition-all">
+                                <User size={16} />
+                              </div>
+                              <div className="space-y-1">
+                                <h4 className="text-sm font-bold tracking-wide uppercase">{buyer.name}</h4>
+                                <p className="text-[10px] tracking-widest uppercase text-white/40">Verified Owner &bull; {buyer.location}</p>
+                              </div>
+                            </div>
+                            
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-12 w-full md:w-auto pt-4 sm:pt-0 border-t sm:border-t-0 border-white/5 sm:border-transparent mt-2 sm:mt-0">
+                              <div className="text-left sm:text-right min-w-[150px]">
+                                <p className="text-[10px] tracking-widest uppercase text-white/30">Vehicle Acquired</p>
+                                <p className="text-xs font-bold mt-1 text-luxury-gold uppercase">{buyer.vehicle}</p>
+                              </div>
+                              <div className="text-left sm:text-right min-w-[100px]">
+                                <p className="text-[10px] tracking-widest uppercase text-white/30">Acquisition Price</p>
+                                <p className="text-sm font-serif mt-1 text-white">{buyer.amount}</p>
+                              </div>
+                              <div className="text-left sm:text-right min-w-[80px]">
+                                <p className="text-[10px] tracking-widest uppercase text-white/30">Date</p>
+                                <p className="text-xs font-bold mt-1 text-white/60">05 / 2026</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    )}
+                    </div>
                   </div>
                 )}
 
