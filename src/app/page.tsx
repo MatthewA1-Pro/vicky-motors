@@ -1,3 +1,5 @@
+"use client";
+
 import Hero from "@/components/home/Hero";
 import FeaturedInventory from "@/components/home/FeaturedInventory";
 import { motion } from "framer-motion";
