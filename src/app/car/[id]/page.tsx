@@ -65,8 +65,34 @@ export default function CarDetailsPage() {
     }
   };
 
-  const handleAction = (action: string) => {
-    toast.success(`${action} request received. Our concierge will contact you.`);
+  const [isEnquiring, setIsEnquiring] = useState(false);
+
+  const handleAction = async (action: string) => {
+    if (!user) {
+      router.push('/auth/login');
+      return;
+    }
+
+    setIsEnquiring(true);
+    try {
+      const { error } = await supabase
+        .from('inquiries')
+        .insert({
+          user_id: user.id,
+          email: user.email,
+          interest: `${action.toUpperCase()}: ${vehicle?.brand} ${vehicle?.model}`,
+          car_id: vehicle?.id,
+          status: 'Pending',
+          created_at: new Date().toISOString()
+        });
+
+      if (error) throw error;
+      toast.success(`${action} request received. Our concierge will contact you.`);
+    } catch (error: any) {
+      toast.error(error.message || "Failed to send enquiry.");
+    } finally {
+      setIsEnquiring(false);
+    }
   };
 
   if (!vehicle) {
@@ -213,9 +239,10 @@ export default function CarDetailsPage() {
             <div className="space-y-3 md:space-y-4">
               <button 
                 onClick={() => handleAction("Enquiry")}
-                className="w-full bg-white text-black py-4 md:py-5 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase hover:bg-luxury-gold transition-all"
+                disabled={isEnquiring}
+                className="w-full bg-white text-black py-4 md:py-5 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase hover:bg-luxury-gold transition-all disabled:opacity-50"
               >
-                Enquire Now
+                {isEnquiring ? "Processing..." : "Enquire Now"}
               </button>
               <Link 
                 href="/contact"

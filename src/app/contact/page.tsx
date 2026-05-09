@@ -5,8 +5,11 @@ import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import toast from "react-hot-toast";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/context/AuthContext";
 
 export default function ContactPage() {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,12 +26,28 @@ export default function ContactPage() {
     }
     
     setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
+    
+    try {
+      const { error } = await supabase
+        .from('inquiries')
+        .insert({
+          user_id: user?.id || null,
+          email: formData.email,
+          interest: formData.interest,
+          message: formData.message,
+          status: 'Pending',
+          created_at: new Date().toISOString()
+        });
+
+      if (error) throw error;
+
       toast.success("Inquiry sent successfully. Our concierge will contact you shortly.");
       setFormData({ name: "", email: "", interest: "GENERAL ENQUIRY", message: "" });
+    } catch (error: any) {
+      toast.error(error.message || "Failed to send inquiry. Please try again.");
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   const openWhatsApp = () => {

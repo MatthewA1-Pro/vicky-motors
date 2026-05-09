@@ -66,7 +66,8 @@ export default function BuyerDashboard() {
     const { data: iqData } = await supabase
       .from('inquiries')
       .select('*, vehicles(*)')
-      .eq('email', user?.email);
+      .or(`email.eq.${user?.email},user_id.eq.${user?.id}`)
+      .order('created_at', { ascending: false });
     if (iqData) setInquiries(iqData);
 
     // Fetch real wishlist
