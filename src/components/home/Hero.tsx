@@ -38,6 +38,11 @@ export default function Hero() {
 
         <div className="absolute inset-0 bg-gradient-to-b from-luxury-obsidian/80 via-transparent to-luxury-obsidian" />
         <div className="absolute inset-0 bg-gradient-to-r from-luxury-obsidian via-transparent to-luxury-obsidian/40" />
+        
+        {/* Logo Watermark */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl opacity-[0.03] pointer-events-none select-none">
+          <img src="/logo.png" alt="" className="w-full h-auto object-contain" />
+        </div>
       </div>
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
