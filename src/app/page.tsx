@@ -51,24 +51,51 @@ export default function Home() {
       <FeaturedInventory />
 
       {/* CTA Section */}
-      <section className="py-32 md:py-60 relative overflow-hidden bg-white text-black">
+      <section className="py-40 md:py-60 relative overflow-hidden bg-black text-white">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <motion.img 
+            animate={{ 
+              scale: [1, 1.1, 1],
+              opacity: [0.3, 0.4, 0.3]
+            }}
+            transition={{ 
+              duration: 30, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+            src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=2500&auto=format&fit=crop" 
+            alt="The Acquisition" 
+            className="w-full h-full object-cover grayscale brightness-50"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
+        </div>
+
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
-          <span className="text-premium text-black/40 mb-6 md:mb-10 block">Ready to Begin?</span>
-          <h2 className="text-5xl md:text-7xl lg:text-9xl font-serif mb-12 md:mb-20">
-            Start Your <br />
-            <span className="italic">Acquisition</span>
-          </h2>
-          <Link 
-            href="/inventory" 
-            className="inline-flex items-center justify-center gap-4 md:gap-6 bg-black text-white px-8 md:px-16 py-6 md:py-8 text-[10px] md:text-xs tracking-[0.5em] uppercase font-bold hover:bg-luxury-gold transition-all group w-full sm:w-auto"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center"
           >
-            Enter Showroom
-            <ArrowRight size={20} className="group-hover:translate-x-3 transition-transform" />
-          </Link>
+            <span className="text-premium text-luxury-gold mb-8 block uppercase tracking-[0.5em] text-[10px] md:text-xs">The Final Step</span>
+            <h2 className="text-5xl md:text-8xl lg:text-[10rem] font-serif mb-16 md:mb-24 leading-none">
+              Start Your <br />
+              <span className="italic gold-gradient">Acquisition</span>
+            </h2>
+            <Link 
+              href="/inventory" 
+              className="group relative overflow-hidden inline-flex items-center justify-center gap-6 bg-white text-black px-12 md:px-20 py-6 md:py-10 text-[10px] md:text-xs tracking-[0.6em] uppercase font-bold transition-all hover:bg-luxury-gold hover:text-black"
+            >
+              <span className="relative z-10">Enter the Showroom</span>
+              <ArrowRight size={20} className="relative z-10 group-hover:translate-x-4 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-luxury-gold translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+            </Link>
+          </motion.div>
         </div>
         
         {/* Background Decorative Text */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] md:text-[30vw] font-serif font-black text-black/[0.03] select-none pointer-events-none uppercase whitespace-nowrap">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] md:text-[30vw] font-serif font-black text-white/[0.02] select-none pointer-events-none uppercase whitespace-nowrap">
           VICC AUTOS
         </div>
       </section>
