@@ -32,14 +32,21 @@ export default function BuyerDashboard() {
   
   // Profile state
   const [profileName, setProfileName] = useState(user?.user_metadata?.full_name || "");
+  const [profileLocation, setProfileLocation] = useState(user?.user_metadata?.location || "");
+  const [profileBio, setProfileBio] = useState(user?.user_metadata?.bio || "");
   const [avatarUrl, setAvatarUrl] = useState(user?.user_metadata?.avatar_url || "");
+  const [coverUrl, setCoverUrl] = useState(user?.user_metadata?.cover_url || "");
   const [isUpdating, setIsUpdating] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [isUploadingCover, setIsUploadingCover] = useState(false);
 
   useEffect(() => {
     if (user) {
       setProfileName(user.user_metadata?.full_name || "");
+      setProfileLocation(user.user_metadata?.location || "");
+      setProfileBio(user.user_metadata?.bio || "");
       setAvatarUrl(user.user_metadata?.avatar_url || "");
+      setCoverUrl(user.user_metadata?.cover_url || "");
     }
   }, [user]);
 
@@ -152,11 +159,45 @@ export default function BuyerDashboard() {
     }
   };
 
+  const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingCover(true);
+    const fileExt = file.name.split('.').pop();
+    const fileName = `cover-${user.id}-${Math.random()}.${fileExt}`;
+    const filePath = `covers/${fileName}`;
+
+    try {
+      const { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file);
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(filePath);
+
+      const { error: updateError } = await supabase.auth.updateUser({
+        data: { cover_url: publicUrl }
+      });
+      if (updateError) throw updateError;
+
+      setCoverUrl(publicUrl);
+      await refreshUser();
+      toast.success("Cover photo updated.");
+    } catch (error: any) {
+      toast.error(error.message || "Failed to upload cover.");
+    } finally {
+      setIsUploadingCover(false);
+    }
+  };
+
   const handleUpdateProfile = async () => {
     setIsUpdating(true);
     try {
       const { error } = await supabase.auth.updateUser({
-        data: { full_name: profileName }
+        data: { 
+          full_name: profileName,
+          location: profileLocation,
+          bio: profileBio
+        }
       });
       if (error) throw error;
       await refreshUser();
@@ -453,71 +494,107 @@ export default function BuyerDashboard() {
                 )}
 
                 {activeTab === 'settings' && (
-                  <div className="glass p-8 md:p-12 max-w-2xl space-y-12">
-                    {/* Profile Picture Section */}
-                    <div className="space-y-6">
-                      <h4 className="text-[10px] tracking-[0.4em] uppercase text-luxury-gold font-bold">Profile Picture</h4>
-                      <div className="flex flex-col sm:flex-row items-center gap-8">
+                  <div className="space-y-12">
+                    {/* Header Imagery */}
+                    <div className="glass overflow-hidden">
+                      <div className="relative h-48 md:h-64">
+                        {coverUrl ? (
+                          <img src={coverUrl} alt="Cover" className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-r from-zinc-900 to-zinc-800" />
+                        )}
+                        <div className="absolute inset-0 bg-black/20" />
+                        <label className="absolute top-4 right-4 px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 text-[9px] tracking-[0.2em] uppercase font-bold cursor-pointer hover:bg-white hover:text-black transition-all flex items-center gap-2">
+                          <Upload size={12} /> {isUploadingCover ? "Uploading..." : "Update Cover"}
+                          <input type="file" className="hidden" accept="image/*" onChange={handleCoverUpload} disabled={isUploadingCover} />
+                        </label>
+                      </div>
+                      
+                      <div className="p-8 pt-0 -mt-16 flex flex-col sm:flex-row items-end gap-6 relative z-10">
                         <div className="relative group">
-                          <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-luxury-gold/30 bg-zinc-900 flex items-center justify-center">
+                          <div className="w-32 h-32 rounded-full border-4 border-luxury-black bg-zinc-900 overflow-hidden shadow-2xl">
                             {avatarUrl ? (
                               <img src={avatarUrl} alt="Profile" className="w-full h-full object-cover" />
                             ) : (
-                              <User size={40} className="text-white/20" />
+                              <div className="w-full h-full flex items-center justify-center text-white/10">
+                                <User size={48} />
+                              </div>
                             )}
                             {isUploading && (
                               <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-                                <div className="w-6 h-6 border-2 border-luxury-gold border-t-transparent rounded-full animate-spin" />
+                                <div className="w-8 h-8 border-2 border-luxury-gold border-t-transparent rounded-full animate-spin" />
                               </div>
                             )}
                           </div>
-                          <label className="absolute bottom-0 right-0 w-10 h-10 bg-luxury-gold text-black rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-xl">
-                            <Camera size={18} />
+                          <label className="absolute bottom-2 right-2 w-9 h-9 bg-luxury-gold text-black rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-xl">
+                            <Camera size={16} />
                             <input type="file" className="hidden" accept="image/*" onChange={handleAvatarUpload} disabled={isUploading} />
                           </label>
                         </div>
-                        <div className="flex-1 text-center sm:text-left space-y-2">
-                          <p className="text-sm font-bold text-white/80 uppercase tracking-widest">Global Collector Identity</p>
-                          <p className="text-[10px] text-white/40 leading-relaxed uppercase tracking-wider">
-                            Recommended: Square image, max 2MB.<br />
-                            This will be visible on your digital ownership records.
-                          </p>
+                        <div className="mb-4">
+                          <p className="text-[10px] tracking-[0.3em] uppercase text-luxury-gold font-bold mb-1">Global Identity</p>
+                          <h4 className="text-xl font-serif text-white">{profileName || "Anonymous Collector"}</h4>
                         </div>
                       </div>
                     </div>
 
-                    <div className="space-y-6">
-                      <h4 className="text-[10px] tracking-[0.4em] uppercase text-luxury-gold font-bold">Personal Information</h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                        <div className="space-y-2">
-                          <label className="text-[9px] tracking-widest uppercase text-white/40">Full Name</label>
-                          <input 
-                            type="text" 
-                            value={profileName} 
-                            onChange={(e) => setProfileName(e.target.value)}
-                            className="w-full bg-white/5 border border-white/10 p-4 text-xs font-bold outline-none focus:border-luxury-gold transition-colors" 
-                          />
+                    <div className="glass p-8 md:p-12 space-y-10">
+                      <div className="space-y-8">
+                        <h4 className="text-[10px] tracking-[0.4em] uppercase text-luxury-gold font-bold border-b border-white/5 pb-4">Personal Details</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          <div className="space-y-2">
+                            <label className="text-[9px] tracking-widest uppercase text-white/40">Full Name</label>
+                            <input 
+                              type="text" 
+                              value={profileName} 
+                              onChange={(e) => setProfileName(e.target.value)}
+                              className="w-full bg-white/5 border border-white/10 p-4 text-xs font-bold outline-none focus:border-luxury-gold transition-colors" 
+                              placeholder="e.g. John Doe"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <label className="text-[9px] tracking-widest uppercase text-white/40">Location</label>
+                            <input 
+                              type="text" 
+                              value={profileLocation} 
+                              onChange={(e) => setProfileLocation(e.target.value)}
+                              className="w-full bg-white/5 border border-white/10 p-4 text-xs font-bold outline-none focus:border-luxury-gold transition-colors" 
+                              placeholder="e.g. Monaco, FR"
+                            />
+                          </div>
                         </div>
                         <div className="space-y-2">
-                          <label className="text-[9px] tracking-widest uppercase text-white/40">Email</label>
+                          <label className="text-[9px] tracking-widest uppercase text-white/40">Collector Bio</label>
+                          <textarea 
+                            value={profileBio} 
+                            onChange={(e) => setProfileBio(e.target.value)}
+                            className="w-full bg-white/5 border border-white/10 p-4 text-xs font-bold outline-none focus:border-luxury-gold transition-colors min-h-[100px] resize-none" 
+                            placeholder="Share your automotive passion..."
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-8">
+                        <h4 className="text-[10px] tracking-[0.4em] uppercase text-luxury-gold font-bold border-b border-white/5 pb-4">Security</h4>
+                        <div className="space-y-2">
+                          <label className="text-[9px] tracking-widest uppercase text-white/40">Email Address</label>
                           <input 
                             type="text" 
                             readOnly 
                             value={user.email} 
                             className="w-full bg-white/10 border border-white/10 p-4 text-xs font-bold outline-none cursor-not-allowed opacity-60" 
                           />
-                          <p className="text-[8px] text-white/20 mt-1 italic uppercase tracking-tighter">Email cannot be changed directly</p>
                         </div>
                       </div>
+                      
+                      <button 
+                        onClick={handleUpdateProfile}
+                        disabled={isUpdating}
+                        className="gold-button w-full py-5 text-[10px] disabled:opacity-50"
+                      >
+                        {isUpdating ? "Processing..." : "Save Profile Changes"}
+                      </button>
                     </div>
-                    
-                    <button 
-                      onClick={handleUpdateProfile}
-                      disabled={isUpdating}
-                      className="gold-button w-full py-4 text-[10px] disabled:opacity-50"
-                    >
-                      {isUpdating ? "Processing..." : "Save Changes"}
-                    </button>
                   </div>
                 )}
               </motion.div>
