@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import { ArrowLeft, Menu, X, LayoutDashboard, LogOut } from "lucide-react";
+import { ArrowLeft, Menu, X, LayoutDashboard, LogOut, User } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
