@@ -119,9 +119,23 @@ export default function Navbar() {
           {/* CTA */}
           <div className="flex items-center space-x-6 md:space-x-8">
             {user ? (
-              <div className="hidden lg:flex items-center space-x-8">
-                <Link href="/dashboard" className="text-[10px] tracking-[0.3em] uppercase font-bold text-luxury-gold hover:text-white transition-colors flex items-center gap-2">
-                  <LayoutDashboard size={14} /> Dashboard
+              <div className="hidden lg:flex items-center space-x-10">
+                <Link href="/dashboard" className="flex items-center gap-4 group">
+                  <div className="w-10 h-10 rounded-full border border-luxury-gold/30 bg-zinc-900 overflow-hidden group-hover:border-luxury-gold transition-colors">
+                    {user.user_metadata?.avatar_url ? (
+                      <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-white/20">
+                        <User size={18} />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] tracking-[0.2em] font-bold text-white group-hover:text-luxury-gold transition-colors uppercase truncate max-w-[120px]">
+                      {user.user_metadata?.full_name || 'Collector'}
+                    </span>
+                    <span className="text-[8px] tracking-[0.3em] uppercase text-luxury-gold/60">Concierge Dashboard</span>
+                  </div>
                 </Link>
                 <button onClick={() => signOut()} className="text-[10px] tracking-[0.3em] uppercase font-bold text-white/40 hover:text-red-500 transition-colors flex items-center gap-2">
                   <LogOut size={14} /> Logout

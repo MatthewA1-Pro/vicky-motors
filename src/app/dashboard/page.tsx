@@ -12,7 +12,9 @@ import {
   History, 
   LogOut, 
   ChevronRight,
-  Car
+  Car,
+  Camera,
+  Upload
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import Link from "next/link";
@@ -29,12 +31,15 @@ export default function BuyerDashboard() {
   const [wishlist, setWishlist] = useState<any[]>([]);
   
   // Profile state
-  const [profileName, setProfileName] = useState("");
+  const [profileName, setProfileName] = useState(user?.user_metadata?.full_name || "");
+  const [avatarUrl, setAvatarUrl] = useState(user?.user_metadata?.avatar_url || "");
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     if (user) {
       setProfileName(user.user_metadata?.full_name || "");
+      setAvatarUrl(user.user_metadata?.avatar_url || "");
     }
   }, [user]);
 
@@ -97,25 +102,70 @@ export default function BuyerDashboard() {
     router.push("/");
   };
 
-  const handleUpdateProfile = async () => {
-    if (!user) return;
-    if (user.id === 'demo-user-id') {
-      toast.success("Demo profile updated successfully (local simulation).");
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      toast.error("Please upload an image file.");
       return;
     }
 
-    setIsUpdating(true);
-    const { error } = await supabase.auth.updateUser({
-      data: { full_name: profileName }
-    });
-
-    if (error) {
-      toast.error(error.message);
-    } else {
-      await refreshUser();
-      toast.success("Profile updated successfully.");
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("Image size must be less than 2MB.");
+      return;
     }
-    setIsUpdating(false);
+
+    setIsUploading(true);
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${user.id}-${Math.random()}.${fileExt}`;
+    const filePath = `avatars/${fileName}`;
+
+    try {
+      // 1. Upload to Supabase Storage
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      // 2. Get Public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      // 3. Update User Metadata
+      const { error: updateError } = await supabase.auth.updateUser({
+        data: { avatar_url: publicUrl }
+      });
+
+      if (updateError) throw updateError;
+
+      setAvatarUrl(publicUrl);
+      await refreshUser();
+      toast.success("Profile picture updated successfully.");
+    } catch (error: any) {
+      console.error("Error uploading avatar:", error);
+      toast.error(error.message || "Failed to upload image. Please ensure an 'avatars' bucket exists in Supabase.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleUpdateProfile = async () => {
+    setIsUpdating(true);
+    try {
+      const { error } = await supabase.auth.updateUser({
+        data: { full_name: profileName }
+      });
+      if (error) throw error;
+      await refreshUser();
+      toast.success("Profile updated successfully");
+    } catch (error: any) {
+      toast.error(error.message || "Failed to update profile");
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
   return (
@@ -403,7 +453,39 @@ export default function BuyerDashboard() {
                 )}
 
                 {activeTab === 'settings' && (
-                  <div className="glass p-12 max-w-2xl space-y-10">
+                  <div className="glass p-8 md:p-12 max-w-2xl space-y-12">
+                    {/* Profile Picture Section */}
+                    <div className="space-y-6">
+                      <h4 className="text-[10px] tracking-[0.4em] uppercase text-luxury-gold font-bold">Profile Picture</h4>
+                      <div className="flex flex-col sm:flex-row items-center gap-8">
+                        <div className="relative group">
+                          <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-luxury-gold/30 bg-zinc-900 flex items-center justify-center">
+                            {avatarUrl ? (
+                              <img src={avatarUrl} alt="Profile" className="w-full h-full object-cover" />
+                            ) : (
+                              <User size={40} className="text-white/20" />
+                            )}
+                            {isUploading && (
+                              <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                                <div className="w-6 h-6 border-2 border-luxury-gold border-t-transparent rounded-full animate-spin" />
+                              </div>
+                            )}
+                          </div>
+                          <label className="absolute bottom-0 right-0 w-10 h-10 bg-luxury-gold text-black rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-xl">
+                            <Camera size={18} />
+                            <input type="file" className="hidden" accept="image/*" onChange={handleAvatarUpload} disabled={isUploading} />
+                          </label>
+                        </div>
+                        <div className="flex-1 text-center sm:text-left space-y-2">
+                          <p className="text-sm font-bold text-white/80 uppercase tracking-widest">Global Collector Identity</p>
+                          <p className="text-[10px] text-white/40 leading-relaxed uppercase tracking-wider">
+                            Recommended: Square image, max 2MB.<br />
+                            This will be visible on your digital ownership records.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="space-y-6">
                       <h4 className="text-[10px] tracking-[0.4em] uppercase text-luxury-gold font-bold">Personal Information</h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -428,21 +510,13 @@ export default function BuyerDashboard() {
                         </div>
                       </div>
                     </div>
-                    <div className="space-y-6">
-                      <h4 className="text-[10px] tracking-[0.4em] uppercase text-luxury-gold font-bold">Preferences</h4>
-                      <div className="flex items-center justify-between p-4 bg-white/5 border border-white/10">
-                        <span className="text-[10px] tracking-widest uppercase">Exclusive Newsletter</span>
-                        <div className="w-10 h-5 bg-luxury-gold rounded-full relative cursor-pointer">
-                          <div className="absolute right-1 top-1 w-3 h-3 bg-white rounded-full" />
-                        </div>
-                      </div>
-                    </div>
+                    
                     <button 
                       onClick={handleUpdateProfile}
                       disabled={isUpdating}
                       className="gold-button w-full py-4 text-[10px] disabled:opacity-50"
                     >
-                      {isUpdating ? "Processing..." : "Update Profile"}
+                      {isUpdating ? "Processing..." : "Save Changes"}
                     </button>
                   </div>
                 )}
