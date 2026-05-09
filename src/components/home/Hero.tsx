@@ -16,16 +16,23 @@ export default function Hero() {
           className="w-full h-full object-cover opacity-30 grayscale"
         />
         
-        {/* Rotating Lamborghini */}
+        {/* Waving Flag Backdrop */}
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] md:w-[120%] lg:w-[100%] aspect-square flex items-center justify-center opacity-[0.07] pointer-events-none select-none"
+          animate={{ 
+            scale: [1, 1.05, 1],
+            rotate: [0, 1, 0] 
+          }}
+          transition={{ 
+            duration: 20, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
+          className="absolute inset-0 z-0 opacity-10 pointer-events-none"
         >
           <img 
-            src="/lamborghini-rotate.png" 
-            alt="Rotating Lamborghini"
-            className="w-full h-auto max-w-7xl"
+            src="/flag.png" 
+            alt="Heritage Flag"
+            className="w-full h-full object-cover grayscale"
           />
         </motion.div>
 
