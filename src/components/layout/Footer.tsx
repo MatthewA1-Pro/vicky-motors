@@ -31,9 +31,19 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 mb-32">
           {/* Brand Column */}
           <div className="lg:col-span-5 space-y-12">
-            <Link href="/" className="flex flex-col">
-              <span className="text-4xl font-serif tracking-[0.3em] font-black uppercase">VICC</span>
-              <span className="text-[10px] tracking-[0.6em] text-luxury-gold uppercase -mt-1 ml-1 font-bold">Autos</span>
+            <Link href="/" className="group flex items-center gap-6">
+              <div className="relative w-16 h-16">
+                <img 
+                  src="/logo.png" 
+                  alt="VICC Autos Logo" 
+                  className="w-full h-full object-contain brightness-110 group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-luxury-gold blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-4xl font-serif tracking-[0.3em] font-black uppercase text-white leading-none">VICC</span>
+                <span className="text-[10px] tracking-[0.6em] text-luxury-gold uppercase ml-1 font-bold">Autos</span>
+              </div>
             </Link>
             <p className="text-white/40 text-lg leading-relaxed max-w-md font-light">
               Curating the world's most exceptional automotive masterpieces for the most discerning collectors since 1998.
