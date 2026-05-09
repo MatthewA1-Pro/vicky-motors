@@ -91,18 +91,14 @@ export default function Navbar() {
             )}
 
             {/* Logo */}
-            <Link href="/" className="group flex items-center gap-4">
-              <div className="relative w-10 h-10 md:w-12 md:h-12">
+            <Link href="/" className="group flex items-center">
+              <div className="relative h-12 md:h-16 w-32 md:w-48 transition-transform duration-500 group-hover:scale-105">
                 <img 
                   src="/logo.png" 
-                  alt="VICC Autos Logo" 
-                  className="w-full h-full object-contain brightness-110 group-hover:scale-110 transition-transform duration-500"
+                  alt="VICC Autos Official Logo" 
+                  className="w-full h-full object-contain brightness-110"
                 />
-                <div className="absolute inset-0 bg-luxury-gold blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl md:text-2xl font-serif tracking-[0.3em] font-black uppercase text-white leading-none">VICC</span>
-                <span className="text-[7px] md:text-[8px] tracking-[0.6em] text-luxury-gold uppercase ml-1 font-bold">Autos</span>
+                <div className="absolute inset-0 bg-luxury-gold blur-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
               </div>
             </Link>
           </div>
@@ -178,17 +174,13 @@ export default function Navbar() {
             className="fixed top-0 right-0 h-[100dvh] w-[85vw] sm:w-[350px] bg-[#0a0a0a] border-l border-white/10 z-[200] flex flex-col lg:hidden overflow-y-auto"
           >
             <div className="flex justify-between items-center p-6 border-b border-white/10">
-              <div className="flex items-center gap-3">
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center">
                 <img 
                   src="/logo.png" 
                   alt="VICC Autos Logo" 
-                  className="w-8 h-8 object-contain brightness-110"
+                  className="h-10 md:h-12 w-auto object-contain brightness-110"
                 />
-                <div className="flex flex-col">
-                  <span className="text-xl font-serif tracking-[0.3em] font-black uppercase text-white leading-none">VICC</span>
-                  <span className="text-[6px] tracking-[0.6em] text-luxury-gold uppercase mt-0 ml-1 font-bold">Autos</span>
-                </div>
-              </div>
+              </Link>
               <button 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="p-2 text-white/60 hover:text-luxury-gold transition-colors rounded-full hover:bg-white/5"
