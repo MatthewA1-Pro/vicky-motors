@@ -215,11 +215,11 @@ export default function BuyerDashboard() {
                     {/* Recent Inquiries */}
                     <section className="space-y-6">
                       <div className="flex items-center justify-between">
-                        <h3 className="text-xl font-serif tracking-widest uppercase">Recent Activity</h3>
+                        <h3 className="text-xl font-serif tracking-widest uppercase">My Recent Activity</h3>
                         <button onClick={() => setActiveTab('inquiries')} className="text-[10px] tracking-widest uppercase text-luxury-gold hover:text-white transition-colors">View All</button>
                       </div>
                       <div className="space-y-4">
-                        {inquiries.slice(0, 3).map((iq) => (
+                        {inquiries.length > 0 ? inquiries.slice(0, 3).map((iq) => (
                           <div key={iq.id} className="glass p-5 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-l-4 border-luxury-gold">
                             <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto">
                               <div className="w-20 h-12 bg-zinc-900 overflow-hidden shrink-0">
@@ -236,6 +236,37 @@ export default function BuyerDashboard() {
                                 <p className="text-xs font-medium mt-1">{new Date(iq.created_at).toLocaleDateString()}</p>
                               </div>
                               <ChevronRight size={18} className="text-white/20" />
+                            </div>
+                          </div>
+                        )) : (
+                          <div className="glass p-8 text-center text-white/20 text-[10px] uppercase tracking-[0.2em]">
+                            No recent personal activity
+                          </div>
+                        )}
+                      </div>
+                    </section>
+
+                    {/* Quick Global Acquisitions Preview */}
+                    <section className="space-y-6">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-serif tracking-widest uppercase text-luxury-gold">Global Sales Ledger</h3>
+                        <button onClick={() => setActiveTab('inquiries')} className="text-[10px] tracking-widest uppercase text-white/40 hover:text-luxury-gold transition-colors">View Full History</button>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {recentBuyers.slice(0, 4).map((buyer) => (
+                          <div key={buyer.id} className="glass p-5 flex items-center justify-between border-l border-white/10 group hover:bg-white/[0.02] transition-colors">
+                            <div className="flex items-center gap-4">
+                              <div className="w-8 h-8 rounded-full bg-luxury-gold/10 flex items-center justify-center border border-luxury-gold/20 text-luxury-gold group-hover:bg-luxury-gold group-hover:text-black transition-all">
+                                <User size={12} />
+                              </div>
+                              <div>
+                                <p className="text-xs font-bold tracking-wide uppercase">{buyer.name}</p>
+                                <p className="text-[9px] tracking-widest uppercase text-white/40">{buyer.vehicle}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-xs font-serif text-luxury-gold">{buyer.amount}</p>
+                              <p className="text-[9px] text-white/20 uppercase tracking-widest">Verified</p>
                             </div>
                           </div>
                         ))}
